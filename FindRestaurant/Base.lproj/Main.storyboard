@@ -34,11 +34,19 @@
                                                             <outlet property="delegate" destination="xg2-od-D8R" id="ELB-3G-KZ8"/>
                                                         </connections>
                                                     </tableView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6B-Jp-qZe">
+                                                        <rect key="frame" x="46.5" y="352.5" width="114" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="282f58"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="7pc-3Q-Q1v" firstAttribute="top" secondItem="Wpg-ef-rGv" secondAttribute="top" id="2Me-Ma-4hX"/>
+                                                    <constraint firstItem="F6B-Jp-qZe" firstAttribute="centerY" secondItem="Wpg-ef-rGv" secondAttribute="centerY" id="2un-Nq-ch9"/>
                                                     <constraint firstAttribute="trailing" secondItem="7pc-3Q-Q1v" secondAttribute="trailing" id="JRE-od-WSd"/>
+                                                    <constraint firstItem="F6B-Jp-qZe" firstAttribute="centerX" secondItem="Wpg-ef-rGv" secondAttribute="centerX" id="SPx-HU-2Jg"/>
                                                     <constraint firstAttribute="bottom" secondItem="7pc-3Q-Q1v" secondAttribute="bottom" id="UdE-eR-av6"/>
                                                     <constraint firstItem="7pc-3Q-Q1v" firstAttribute="leading" secondItem="Wpg-ef-rGv" secondAttribute="leading" id="ZH0-Gi-MlY"/>
                                                 </constraints>
@@ -278,6 +286,7 @@
                         <outlet property="listView" destination="Wpg-ef-rGv" id="0cb-ln-JmQ"/>
                         <outlet property="mapListView" destination="gYt-Os-KFz" id="7Ge-ro-gov"/>
                         <outlet property="mapView" destination="11I-Kj-wHv" id="yBV-Y3-K8K"/>
+                        <outlet property="noDataFound" destination="F6B-Jp-qZe" id="OGY-eS-hdn"/>
                         <outlet property="resAddressLbl" destination="hBg-BC-TwN" id="3lh-B0-2hP"/>
                         <outlet property="resDistanceLbl" destination="Efq-d2-C6K" id="tTj-DN-nPm"/>
                         <outlet property="resImg" destination="kbl-94-HAC" id="mVz-bU-iVN"/>
@@ -518,13 +527,21 @@
                                                     <outlet property="delegate" destination="gxv-Oq-2ho" id="IWp-jR-D78"/>
                                                 </connections>
                                             </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he8-VE-PtL">
+                                                <rect key="frame" x="150" y="352" width="114" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="282f58"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="3Of-3y-w7p" secondAttribute="bottom" id="7Vn-4O-c3c"/>
+                                            <constraint firstItem="he8-VE-PtL" firstAttribute="centerX" secondItem="KNQ-ib-dTZ" secondAttribute="centerX" id="ECE-Uo-T7c"/>
                                             <constraint firstItem="3Of-3y-w7p" firstAttribute="leading" secondItem="KNQ-ib-dTZ" secondAttribute="leading" id="TWT-wZ-FFN"/>
                                             <constraint firstItem="3Of-3y-w7p" firstAttribute="top" secondItem="KNQ-ib-dTZ" secondAttribute="top" id="UPI-wR-ps7"/>
                                             <constraint firstAttribute="trailing" secondItem="3Of-3y-w7p" secondAttribute="trailing" id="rbg-bJ-eyO"/>
+                                            <constraint firstItem="he8-VE-PtL" firstAttribute="centerY" secondItem="KNQ-ib-dTZ" secondAttribute="centerY" id="rzS-ay-1dP"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -550,6 +567,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="fPa-FB-Akd"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="noDataFound" destination="he8-VE-PtL" id="dgb-Ii-NHE"/>
                         <outlet property="tblView" destination="3Of-3y-w7p" id="hP1-Mz-hjq"/>
                     </connections>
                 </viewController>

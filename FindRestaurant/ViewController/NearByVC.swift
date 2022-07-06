@@ -33,7 +33,8 @@ class NearByVC: UIViewController {
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var detailViewHC: NSLayoutConstraint!
-    
+    @IBOutlet weak var noDataFound: UILabel!
+
     var placeDict: GooglePlace? = nil
     
     //    let placeDict: GooglePlace?
@@ -44,8 +45,10 @@ class NearByVC: UIViewController {
         listView.isHidden = false
         mapListView.isHidden = true
         detailView.isHidden = true
+        noDataFound.isHidden = true
         // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.setUpMap()
@@ -60,11 +63,47 @@ class NearByVC: UIViewController {
         locationManager.delegate = self
         
         if CLLocationManager.locationServicesEnabled() {
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            self.locationManager.requestAlwaysAuthorization()
-            self.locationManager.requestWhenInUseAuthorization()
-            self.locationManager.startUpdatingLocation()
+            if #available(iOS 14.0, *) {
+                switch self.locationManager.authorizationStatus {
+                case .notDetermined:
+                    print("a")
+                case .restricted:
+                    print("a")
+                case .denied:
+                    print("a")
+                    let alert = UIAlertController(title: "", message: Constant.Location_Permission, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Open Setting", style: .default, handler: { action in
+                        switch action.style{
+                            case .default:
+                            print("default")
+                            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+
+                            
+                            case .cancel:
+                            print("cancel")
+                            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+
+                            
+                            
+                            case .destructive:
+                            print("destructive")
+                            
+                        }
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+
+
+                case .authorizedAlways, .authorizedWhenInUse:
+                    
+                    self.locationManager.delegate = self
+                    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                    self.locationManager.requestAlwaysAuthorization()
+                    self.locationManager.requestWhenInUseAuthorization()
+                    self.locationManager.startUpdatingLocation()
+                @unknown default:
+                    break
+                }
+            }
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -174,6 +213,13 @@ class NearByVC: UIViewController {
         var bounds = GMSCoordinateBounds()
         dataProvider.fetchPlaces(coordinate: coordinate) { googlePlaceArr in
             self.googlePlaceArr = googlePlaceArr
+            if googlePlaceArr.count == 0 {
+                self.noDataFound.isHidden = false
+                self.tblView.isHidden = true
+            } else {
+                self.noDataFound.isHidden = true
+                self.tblView.isHidden = false
+            }
             self.tblView.reloadData()
             self.googlePlaceArr.forEach { place in
                 let marker = PlaceMarker(place: place)
@@ -271,7 +317,9 @@ extension NearByVC: CLLocationManagerDelegate {
         locationManager.requestLocation()
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        
     }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else {
@@ -283,6 +331,10 @@ extension NearByVC: CLLocationManagerDelegate {
             bearing: 0,
             viewingAngle: 0)
         fetchPlaces(near: location.coordinate)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
     
 }

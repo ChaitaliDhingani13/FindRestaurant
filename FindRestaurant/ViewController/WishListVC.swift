@@ -11,9 +11,12 @@ class WishListVC: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     var wishListArr : [LikedRestaurantModel] = []
     private var objManager = LikedRestaurantManager()
+    @IBOutlet weak var noDataFound: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpNavigationBar()
+        self.noDataFound.isHidden = true
         // Do any additional setup after loading the view.
         
     }
@@ -35,6 +38,13 @@ class WishListVC: UIViewController {
     }
     func getWishListData() {
         wishListArr = objManager.getAllLikedRestaurantRecords() ?? []
+        if wishListArr.count == 0 {
+            self.noDataFound.isHidden = false
+            self.tblView.isHidden = true
+        } else {
+            self.noDataFound.isHidden = true
+            self.tblView.isHidden = false
+        }
         self.tblView.reloadData()
     }
     

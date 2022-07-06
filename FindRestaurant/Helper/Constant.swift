@@ -15,5 +15,6 @@ class Constant {
     static let APIParsingError = "API Parsing Fail"
     static let CellHomeCollection = "cellhomeCollection"
     static let CellTableHomeTableViewCell = "cellTableHomeTableViewCell"
-    
+    static let Location_Permission = "\nLocation Permission Required to show you Moby Cash Rewards at near by store. Allow 'Always' or 'While using app'\n"
+
 }
