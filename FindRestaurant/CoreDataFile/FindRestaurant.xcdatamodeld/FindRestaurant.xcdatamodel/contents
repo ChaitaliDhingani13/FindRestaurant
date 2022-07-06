@@ -4,12 +4,14 @@
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="openNow" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="photoReference" optional="YES" attributeType="String"/>
         <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="LikedRestaurant" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="LikedRestaurant" positionX="-63" positionY="-18" width="128" height="164"/>
     </elements>
 </model>

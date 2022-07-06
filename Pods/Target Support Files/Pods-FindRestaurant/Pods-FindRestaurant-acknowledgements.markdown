@@ -29,6 +29,10 @@ THE SOFTWARE.
 
 Copyright 2022 Google
 
+## GooglePlaces
+
+Copyright 2022 Google
+
 ## SDWebImage
 
 Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com

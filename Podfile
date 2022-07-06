@@ -10,6 +10,7 @@ target 'FindRestaurant' do
 pod 'SDWebImage'
 pod 'SVProgressHUD'
 pod 'GoogleMaps'
+pod 'GooglePlaces'
 pod 'Cosmos'
 
   target 'FindRestaurantTests' do

@@ -9,13 +9,8 @@
 /* Begin PBXBuildFile section */
 		4274C70142DB04AE9AE72FB6 /* Pods_FindRestaurant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2D84D2B0822B25EAC93698 /* Pods_FindRestaurant.framework */; };
 		A46A859428733B1E00A703CC /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A858F28733B1E00A703CC /* GooglePlace.swift */; };
-		A46A859528733B1E00A703CC /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859028733B1E00A703CC /* Metadata.swift */; };
-		A46A859628733B1E00A703CC /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859128733B1E00A703CC /* GoogleDataProvider.swift */; };
-		A46A859728733B1E00A703CC /* CLLocationCoordinate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859228733B1E00A703CC /* CLLocationCoordinate+Extensions.swift */; };
-		A46A859828733B1E00A703CC /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859328733B1E00A703CC /* PlaceMarker.swift */; };
-		A46A859D28733DDD00A703CC /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859A28733DDD00A703CC /* MarkerInfoView.swift */; };
+		A46A859628733B1E00A703CC /* GoogleDataProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859128733B1E00A703CC /* GoogleDataProviderModel.swift */; };
 		A46A859E28733DDD00A703CC /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A859B28733DDD00A703CC /* UIView+Extensions.swift */; };
-		A46A859F28733DDD00A703CC /* MarkerInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46A859C28733DDD00A703CC /* MarkerInfoView.xib */; };
 		A46A85A32873431500A703CC /* ListTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85A12873431500A703CC /* ListTblCell.swift */; };
 		A46A85A42873431500A703CC /* ListTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46A85A22873431500A703CC /* ListTblCell.xib */; };
 		A46A85AB2874649E00A703CC /* LikedRestaurantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85AA2874649E00A703CC /* LikedRestaurantModel.swift */; };
@@ -33,9 +28,16 @@
 		A49D47CB2872987E009CC151 /* FindRestaurantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49D47CA2872987E009CC151 /* FindRestaurantUITests.swift */; };
 		A49D47CD2872987E009CC151 /* FindRestaurantUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49D47CC2872987E009CC151 /* FindRestaurantUITestsLaunchTests.swift */; };
 		A4BA11D32872C23200007C2C /* NearByVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D22872C23200007C2C /* NearByVC.swift */; };
-		A4BA11D52872CCBA00007C2C /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D42872CCBA00007C2C /* TabBarVC.swift */; };
 		A4BA11D72872CD2800007C2C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D62872CD2800007C2C /* Extension.swift */; };
 		A4BA11D92872E6E800007C2C /* WishListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D82872E6E800007C2C /* WishListVC.swift */; };
+		A4BFC71828753AAC00F8BF68 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC71728753AAC00F8BF68 /* MapVC.swift */; };
+		A4BFC71C2875543200F8BF68 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC71B2875543200F8BF68 /* Constant.swift */; };
+		A4BFC71E28755B3300F8BF68 /* GoogleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC71D28755B3300F8BF68 /* GoogleMap.swift */; };
+		A4BFC7222875617C00F8BF68 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7202875617C00F8BF68 /* APIHelper.swift */; };
+		A4BFC7232875617C00F8BF68 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7212875617C00F8BF68 /* WebService.swift */; };
+		A4BFC7252875A95700F8BF68 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7242875A95700F8BF68 /* PlaceMarker.swift */; };
+		A4BFC7272875B5E000F8BF68 /* CalculateDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */; };
+		A4BFC7292875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */; };
 		CD89A1795C787E59195BEAC2 /* Pods_FindRestaurantTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005B10D38FF23FF7C182F063 /* Pods_FindRestaurantTests.framework */; };
 		FE0403089C7533421628F373 /* Pods_FindRestaurant_FindRestaurantUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779A3DBB9891DC834F799926 /* Pods_FindRestaurant_FindRestaurantUITests.framework */; };
 /* End PBXBuildFile section */
@@ -64,13 +66,8 @@
 		779A3DBB9891DC834F799926 /* Pods_FindRestaurant_FindRestaurantUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindRestaurant_FindRestaurantUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D2D84D2B0822B25EAC93698 /* Pods_FindRestaurant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindRestaurant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46A858F28733B1E00A703CC /* GooglePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
-		A46A859028733B1E00A703CC /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
-		A46A859128733B1E00A703CC /* GoogleDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
-		A46A859228733B1E00A703CC /* CLLocationCoordinate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate+Extensions.swift"; sourceTree = "<group>"; };
-		A46A859328733B1E00A703CC /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
-		A46A859A28733DDD00A703CC /* MarkerInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
+		A46A859128733B1E00A703CC /* GoogleDataProviderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDataProviderModel.swift; sourceTree = "<group>"; };
 		A46A859B28733DDD00A703CC /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		A46A859C28733DDD00A703CC /* MarkerInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkerInfoView.xib; sourceTree = "<group>"; };
 		A46A85A12873431500A703CC /* ListTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTblCell.swift; sourceTree = "<group>"; };
 		A46A85A22873431500A703CC /* ListTblCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTblCell.xib; sourceTree = "<group>"; };
 		A46A85AA2874649E00A703CC /* LikedRestaurantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedRestaurantModel.swift; sourceTree = "<group>"; };
@@ -93,9 +90,16 @@
 		A49D47CC2872987E009CC151 /* FindRestaurantUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRestaurantUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A49D47D928729EC4009CC151 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A4BA11D22872C23200007C2C /* NearByVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByVC.swift; sourceTree = "<group>"; };
-		A4BA11D42872CCBA00007C2C /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		A4BA11D62872CD2800007C2C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		A4BA11D82872E6E800007C2C /* WishListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListVC.swift; sourceTree = "<group>"; };
+		A4BFC71728753AAC00F8BF68 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		A4BFC71B2875543200F8BF68 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A4BFC71D28755B3300F8BF68 /* GoogleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMap.swift; sourceTree = "<group>"; };
+		A4BFC7202875617C00F8BF68 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		A4BFC7212875617C00F8BF68 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		A4BFC7242875A95700F8BF68 /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
+		A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateDistance.swift; sourceTree = "<group>"; };
+		A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate+Extensions.swift"; sourceTree = "<group>"; };
 		C23B82E7E2295AA66F687B5E /* Pods-FindRestaurant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindRestaurant.debug.xcconfig"; path = "Target Support Files/Pods-FindRestaurant/Pods-FindRestaurant.debug.xcconfig"; sourceTree = "<group>"; };
 		D6D8B5BAF1AF4E27E9E17DEB /* Pods-FindRestaurantTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindRestaurantTests.debug.xcconfig"; path = "Target Support Files/Pods-FindRestaurantTests/Pods-FindRestaurantTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E41F02CE748FC0748BC66E69 /* Pods-FindRestaurant-FindRestaurantUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindRestaurant-FindRestaurantUITests.release.xcconfig"; path = "Target Support Files/Pods-FindRestaurant-FindRestaurantUITests/Pods-FindRestaurant-FindRestaurantUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,9 +160,7 @@
 		A46A859928733DDD00A703CC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A46A859A28733DDD00A703CC /* MarkerInfoView.swift */,
 				A46A859B28733DDD00A703CC /* UIView+Extensions.swift */,
-				A46A859C28733DDD00A703CC /* MarkerInfoView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,12 +228,12 @@
 			children = (
 				A49D47A62872987B009CC151 /* AppDelegate.swift */,
 				A4BA11D12872A73900007C2C /* Helper */,
+				A4BFC71F2875617C00F8BF68 /* NetworkManager */,
 				A46A85B82874699F00A703CC /* Manager */,
 				A46A85BA2874699F00A703CC /* Repository */,
 				A49D47DD2872A3C4009CC151 /* Model */,
 				A49D47DC2872A3BB009CC151 /* ViewController */,
 				A4BA11D02872A72200007C2C /* ViewModel */,
-				A4BA11D42872CCBA00007C2C /* TabBarVC.swift */,
 				A49D47AC2872987B009CC151 /* Main.storyboard */,
 				A49D47B22872987E009CC151 /* Assets.xcassets */,
 				A49D47B42872987E009CC151 /* LaunchScreen.storyboard */,
@@ -265,6 +267,7 @@
 				A46A85A0287342D600A703CC /* Cell */,
 				A46A859928733DDD00A703CC /* Views */,
 				A4BA11D22872C23200007C2C /* NearByVC.swift */,
+				A4BFC71728753AAC00F8BF68 /* MapVC.swift */,
 				A4BA11D82872E6E800007C2C /* WishListVC.swift */,
 			);
 			path = ViewController;
@@ -273,12 +276,11 @@
 		A49D47DD2872A3C4009CC151 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A46A859228733B1E00A703CC /* CLLocationCoordinate+Extensions.swift */,
-				A46A859128733B1E00A703CC /* GoogleDataProvider.swift */,
+				A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */,
 				A46A858F28733B1E00A703CC /* GooglePlace.swift */,
+				A4BFC7242875A95700F8BF68 /* PlaceMarker.swift */,
+				A4BFC71D28755B3300F8BF68 /* GoogleMap.swift */,
 				A46A85AA2874649E00A703CC /* LikedRestaurantModel.swift */,
-				A46A859028733B1E00A703CC /* Metadata.swift */,
-				A46A859328733B1E00A703CC /* PlaceMarker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -286,6 +288,7 @@
 		A4BA11D02872A72200007C2C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A46A859128733B1E00A703CC /* GoogleDataProviderModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -294,8 +297,19 @@
 			isa = PBXGroup;
 			children = (
 				A4BA11D62872CD2800007C2C /* Extension.swift */,
+				A4BFC71B2875543200F8BF68 /* Constant.swift */,
+				A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		A4BFC71F2875617C00F8BF68 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				A4BFC7202875617C00F8BF68 /* APIHelper.swift */,
+				A4BFC7212875617C00F8BF68 /* WebService.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,7 +423,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46A859F28733DDD00A703CC /* MarkerInfoView.xib in Resources */,
 				A46A85A42873431500A703CC /* ListTblCell.xib in Resources */,
 				A49D47B62872987E009CC151 /* LaunchScreen.storyboard in Resources */,
 				A49D47B32872987E009CC151 /* Assets.xcassets in Resources */,
@@ -575,25 +588,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4BFC7252875A95700F8BF68 /* PlaceMarker.swift in Sources */,
 				A46A859E28733DDD00A703CC /* UIView+Extensions.swift in Sources */,
-				A46A859D28733DDD00A703CC /* MarkerInfoView.swift in Sources */,
 				A49D47B12872987B009CC151 /* FindRestaurant.xcdatamodeld in Sources */,
 				A46A85BD2874699F00A703CC /* LikedRestaurantDataRepository.swift in Sources */,
+				A4BFC71828753AAC00F8BF68 /* MapVC.swift in Sources */,
 				A49D47A72872987B009CC151 /* AppDelegate.swift in Sources */,
 				A46A85B62874698700A703CC /* LikedRestaurant+CoreDataClass.swift in Sources */,
-				A4BA11D52872CCBA00007C2C /* TabBarVC.swift in Sources */,
-				A46A859828733B1E00A703CC /* PlaceMarker.swift in Sources */,
+				A4BFC71E28755B3300F8BF68 /* GoogleMap.swift in Sources */,
 				A46A85BF28746D8700A703CC /* PersistentStorage.swift in Sources */,
 				A46A85BC2874699F00A703CC /* LikedRestaurantManager.swift in Sources */,
+				A4BFC7292875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift in Sources */,
+				A4BFC7222875617C00F8BF68 /* APIHelper.swift in Sources */,
+				A4BFC7272875B5E000F8BF68 /* CalculateDistance.swift in Sources */,
+				A4BFC7232875617C00F8BF68 /* WebService.swift in Sources */,
 				A4BA11D72872CD2800007C2C /* Extension.swift in Sources */,
 				A46A85AB2874649E00A703CC /* LikedRestaurantModel.swift in Sources */,
-				A46A859728733B1E00A703CC /* CLLocationCoordinate+Extensions.swift in Sources */,
 				A46A85B72874698700A703CC /* LikedRestaurant+CoreDataProperties.swift in Sources */,
 				A46A85A32873431500A703CC /* ListTblCell.swift in Sources */,
-				A46A859628733B1E00A703CC /* GoogleDataProvider.swift in Sources */,
+				A46A859628733B1E00A703CC /* GoogleDataProviderModel.swift in Sources */,
 				A4BA11D92872E6E800007C2C /* WishListVC.swift in Sources */,
 				A46A859428733B1E00A703CC /* GooglePlace.swift in Sources */,
-				A46A859528733B1E00A703CC /* Metadata.swift in Sources */,
+				A4BFC71C2875543200F8BF68 /* Constant.swift in Sources */,
 				A4BA11D32872C23200007C2C /* NearByVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

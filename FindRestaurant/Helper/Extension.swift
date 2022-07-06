@@ -139,3 +139,8 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }
+extension CGFloat {
+  func getMiles() -> CGFloat{
+       return self * 0.000621371192
+  }
+}

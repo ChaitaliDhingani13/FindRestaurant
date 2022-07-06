@@ -8,7 +8,7 @@
 import Foundation
 struct LikedRestaurantModel {
     var name, address, photoReference: String?
-    var distance, rating: Double?
+    var distance, rating, latitude, longitude: Double?
     var openNow: Bool?
     var id: String?
 }

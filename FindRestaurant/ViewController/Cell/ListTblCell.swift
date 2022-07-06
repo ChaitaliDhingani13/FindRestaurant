@@ -8,6 +8,7 @@
 import UIKit
 import Cosmos
 import SDWebImage
+import CoreLocation
 
 class ListTblCell: UITableViewCell {
 
@@ -48,15 +49,25 @@ class ListTblCell: UITableViewCell {
     private func setupGooglePlaceData() {
         
         let photoreference = googlePlace?.photos[0].photoReference
-        let urlString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
+        let urlString = APIHelper.baseUrl + "place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
+
+        let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: googlePlace?.coordinate)
 
         self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
         self.resNameLbl.text = googlePlace?.name
         self.resRatingLbl.text = "Rating"
-        self.resDistanceLbl.text = "5.5 Miles"
+        self.resDistanceLbl.text = "\(dis) Miles"
         self.resRatingView.rating = googlePlace?.rating ?? 5
         self.resAddressLbl.text = googlePlace?.address
-        self.resOpenNowLbl.text = "Open Now"
+        if googlePlace?.openingHours.openNow ?? false {
+            self.resOpenNowLbl.textColor = .blue
+            self.resOpenNowLbl.text = "Open Now"
+
+        } else {
+            self.resOpenNowLbl.textColor = .red
+            self.resOpenNowLbl.text = "Close"
+
+        }
         if objManager.checkIfLikedRestaurantExist(id: googlePlace?.reference ?? "") {
             self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
         } else {
@@ -68,15 +79,22 @@ class ListTblCell: UITableViewCell {
     private func setupLikedRestaurant() {
         
         let photoreference = wishList?.photoReference
-        let urlString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
-
+        let urlString = APIHelper.baseUrl + "place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
         self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
         self.resNameLbl.text = wishList?.name
         self.resRatingLbl.text = "Rating"
-        self.resDistanceLbl.text = "5.5 Miles"
+        self.resDistanceLbl.text = "\(wishList?.distance ?? 0.0) Miles"
         self.resRatingView.rating = wishList?.rating ?? 5
         self.resAddressLbl.text = wishList?.address
-        self.resOpenNowLbl.text = "Open Now"
+        if wishList?.openNow ?? false {
+            self.resOpenNowLbl.textColor = .blue
+            self.resOpenNowLbl.text = "Open Now"
+
+        } else {
+            self.resOpenNowLbl.textColor = .red
+            self.resOpenNowLbl.text = "Close"
+
+        }
     
         
     }

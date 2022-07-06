@@ -5,6 +5,7 @@ PODS:
   - GoogleMaps/Base (6.2.1)
   - GoogleMaps/Maps (6.2.1):
     - GoogleMaps/Base
+  - GooglePlaces (7.0.0)
   - SDWebImage (5.12.5):
     - SDWebImage/Core (= 5.12.5)
   - SDWebImage/Core (5.12.5)
@@ -13,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - Cosmos
   - GoogleMaps
+  - GooglePlaces
   - SDWebImage
   - SVProgressHUD
 
@@ -20,15 +22,17 @@ SPEC REPOS:
   trunk:
     - Cosmos
     - GoogleMaps
+    - GooglePlaces
     - SDWebImage
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   GoogleMaps: 20d7b12be49a14287f797e88e0e31bc4156aaeb4
+  GooglePlaces: 8dba710bed6160a2e4b85e84aaafdbcc0b4010d8
   SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: d426b5acaec2748d0653458b65471402e58ef898
+PODFILE CHECKSUM: 7a4a8bed8240a592c8b4f002ffb69ba76454ef06
 
 COCOAPODS: 1.11.2

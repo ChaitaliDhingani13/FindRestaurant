@@ -13,11 +13,18 @@ class WishListVC: UIViewController {
     private var objManager = LikedRestaurantManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setUpNavigationBar()
         // Do any additional setup after loading the view.
+        
+    }
+    
+    private func setUpNavigationBar() {
+        self.navigationItem.title = "Wish List"
+        self.navigationItem.titleView?.tintColor = UIColor(hexString: "282f58")
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
         self.setUpUI()
 
     }
@@ -60,14 +67,25 @@ extension WishListVC: UITableViewDelegate, UITableViewDataSource {
         cell.likeBtn.tag = indexPath.row
         cell.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
         
+        cell.directionBtn.tag = indexPath.row
+        cell.directionBtn.addTarget(self, action: #selector(directionBtnClick), for: .touchUpInside)
+        
         cell.selectionStyle = .none
         return cell
+    }
+    
+    @objc func directionBtnClick(sender: UIButton) {
+        let dict = wishListArr[sender.tag]
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        vc.placeDict = dict
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     @objc func likeBtnClick(sender: UIButton) {
         let dict = wishListArr[sender.tag]
         
-        objManager.deleteLikedRestaurant(id: dict.id ?? "")
+        let _ = objManager.deleteLikedRestaurant(id: dict.id ?? "")
         self.getWishListData()
     }
 }

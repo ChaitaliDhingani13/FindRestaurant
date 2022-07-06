@@ -12,10 +12,11 @@ import GoogleMaps
 let googleApiKey = "AIzaSyBr4Q9FyT0otujnEStamywgCqaomenO76Q"
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
 
     var window: UIWindow?
+    private let locationManager = CLLocationManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -38,7 +39,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
                     UITabBar.appearance().standardAppearance = tabBarApperance
                 }
+        
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            self.locationManager.requestAlwaysAuthorization()
+            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.startUpdatingLocation()
+            //          mapView.isMyLocationEnabled = true
+            //          mapView.settings.myLocationButton = true
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        
         return true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        
+        currentLocation = location.coordinate
+        
+        
     }
     
     // MARK: - Core Data stack
