@@ -46,8 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             self.locationManager.requestAlwaysAuthorization()
             self.locationManager.requestWhenInUseAuthorization()
             self.locationManager.startUpdatingLocation()
-            //          mapView.isMyLocationEnabled = true
-            //          mapView.settings.myLocationButton = true
         } else {
             locationManager.requestWhenInUseAuthorization()
         }

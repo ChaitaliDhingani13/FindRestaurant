@@ -13,22 +13,15 @@ import Cosmos
 class MapVC: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var detailResView: RestaurantDetailView!
     
-    @IBOutlet weak var resImg: UIImageView!
-    @IBOutlet weak var resNameLbl: UILabel!
-    @IBOutlet weak var resRatingLbl: UILabel!
-    @IBOutlet weak var resDistanceLbl: UILabel!
-    @IBOutlet weak var resRatingView: CosmosView!
-    @IBOutlet weak var resAddressLbl: UILabel!
-    @IBOutlet weak var resOpenNowLbl: UILabel!
-    @IBOutlet weak var likeBtn: UIButton!
     private let objManager = LikedRestaurantManager()
-
+    
     
     private let dataProvider = GoogleDataProviderModel()
     var placeDict = LikedRestaurantModel()
     var googlePlaceDict: GooglePlace?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpNavigationBar()
@@ -49,48 +42,31 @@ class MapVC: UIViewController {
     }
     
     func setUpData() {
-        let photoreference = placeDict.photoReference
-        let urlString = APIHelper.baseUrl + "place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
-
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
-        self.resNameLbl.text = placeDict.name
-        self.resRatingLbl.text = "Rating"
-        self.resDistanceLbl.text = "\(placeDict.distance ?? 0.0) Miles"
-        self.resRatingView.rating = placeDict.rating ?? 5
-        self.resAddressLbl.text = placeDict.address
-        if placeDict.openNow ?? false {
-            self.resOpenNowLbl.textColor = .blue
-            self.resOpenNowLbl.text = "Open Now"
-
-        } else {
-            self.resOpenNowLbl.textColor = .red
-            self.resOpenNowLbl.text = "Close"
-
+        
+        for view in detailResView.subviews {
+            if view is RestaurantDetailView {
+                view.removeFromSuperview()
+            }
         }
-        self.resOpenNowLbl.text = "Open Now"
-        if objManager.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
-        } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
-        }
+        let view = RestaurantDetailView.getWishListPlaceData(frame: detailResView.frame, wishList: placeDict, index: 0)
+        view.directionBtn.isHidden = true
+        view.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
+        self.detailResView.addSubview(view)
+        
     }
     
-    @IBAction func likeBtnClick(_ sender: UIButton) {
+    @objc func likeBtnClick(_ sender: UIButton) {
         
         if !objManager.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
             let desti = CLLocationCoordinate2D(latitude: placeDict.latitude ?? 0.0, longitude: placeDict.longitude ?? 0)
             let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: desti)
-
+            
             objManager.createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel(name: placeDict.name, address: placeDict.address, photoReference: placeDict.photoReference, distance: dis, rating: placeDict.rating, latitude: placeDict.latitude, longitude: placeDict.longitude, openNow: placeDict.openNow, id: placeDict.id))
-
+            
         } else {
             let _ = objManager.deleteLikedRestaurant(id: placeDict.id ?? "")
         }
-        if objManager.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
-        } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
-        }
+        self.setUpData()
     }
     
     

@@ -10,19 +10,16 @@ import Cosmos
 import SDWebImage
 import CoreLocation
 
+protocol ListTableDelegate {
+    func listLikeBtnClick(index: Int)
+    func listDirectionBtnClick(index: Int)
+}
+
 class ListTblCell: UITableViewCell {
 
-    @IBOutlet weak var resImg: UIImageView!
-    @IBOutlet weak var resNameLbl: UILabel!
-    @IBOutlet weak var resRatingLbl: UILabel!
-    @IBOutlet weak var resDistanceLbl: UILabel!
-    @IBOutlet weak var resRatingView: CosmosView!
-    @IBOutlet weak var resAddressLbl: UILabel!
-    @IBOutlet weak var resOpenNowLbl: UILabel!
-    @IBOutlet weak var directionBtn: UIButton!
-    @IBOutlet weak var likeBtn: UIButton!
-    private let objManager = LikedRestaurantManager()
-
+    @IBOutlet weak var view: RestaurantDetailView!
+    var delegate: ListTableDelegate?
+    var index = Int()
     var googlePlace: GooglePlace? {
         
         willSet {
@@ -47,58 +44,38 @@ class ListTblCell: UITableViewCell {
     }
 
     private func setupGooglePlaceData() {
-        
-        let photoreference = googlePlace?.photos[0].photoReference
-        let urlString = APIHelper.baseUrl + "place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
-
-        let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: googlePlace?.coordinate)
-
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
-        self.resNameLbl.text = googlePlace?.name
-        self.resRatingLbl.text = "Rating"
-        self.resDistanceLbl.text = "\(dis) Miles"
-        self.resRatingView.rating = googlePlace?.rating ?? 5
-        self.resAddressLbl.text = googlePlace?.address
-        if googlePlace?.openingHours.openNow ?? false {
-            self.resOpenNowLbl.textColor = .blue
-            self.resOpenNowLbl.text = "Open Now"
-
-        } else {
-            self.resOpenNowLbl.textColor = .red
-            self.resOpenNowLbl.text = "Close"
-
+        for view in subviews {
+            if view is RestaurantDetailView {
+               view.removeFromSuperview()
+           }
         }
-        if objManager.checkIfLikedRestaurantExist(id: googlePlace?.reference ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
-        } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
-        }
-        
+
+        let view = RestaurantDetailView.getGooglePlaceData(frame: self.contentView.frame, placeDetail: googlePlace, index: index)
+        view.directionBtn.tag = index
+        view.likeBtn.tag = index
+        view.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
+        view.directionBtn.addTarget(self, action: #selector(directionBtnClick), for: .touchUpInside)
+
+        self.view.addSubview(view)
     }
     
+    @objc func likeBtnClick(_ sender: UIButton) {
+        delegate?.listLikeBtnClick(index: sender.tag)
+
+    }
+    @objc func directionBtnClick(_ sender: UIButton) {
+        delegate?.listDirectionBtnClick(index: sender.tag)
+    }
     private func setupLikedRestaurant() {
-        
-        let photoreference = wishList?.photoReference
-        let urlString = APIHelper.baseUrl + "place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
-        self.resNameLbl.text = wishList?.name
-        self.resRatingLbl.text = "Rating"
-        self.resDistanceLbl.text = "\(wishList?.distance ?? 0.0) Miles"
-        self.resRatingView.rating = wishList?.rating ?? 5
-        self.resAddressLbl.text = wishList?.address
-        if wishList?.openNow ?? false {
-            self.resOpenNowLbl.textColor = .blue
-            self.resOpenNowLbl.text = "Open Now"
+        let view = RestaurantDetailView.getWishListPlaceData(frame: self.contentView.frame, wishList: wishList, index: index)
+        view.directionBtn.tag = index
+        view.likeBtn.tag = index
+        view.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
+        view.directionBtn.addTarget(self, action: #selector(directionBtnClick), for: .touchUpInside)
 
-        } else {
-            self.resOpenNowLbl.textColor = .red
-            self.resOpenNowLbl.text = "Close"
-
-        }
-    
+        self.view.addSubview(view)
         
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

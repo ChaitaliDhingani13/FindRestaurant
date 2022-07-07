@@ -7,7 +7,9 @@
 
 import UIKit
 
-class WishListVC: UIViewController {
+class WishListVC: UIViewController, ListTableDelegate {
+   
+    
     @IBOutlet weak var tblView: UITableView!
     var wishListArr : [LikedRestaurantModel] = []
     private var objManager = LikedRestaurantManager()
@@ -72,30 +74,26 @@ extension WishListVC: UITableViewDelegate, UITableViewDataSource {
        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListTblCell", for: indexPath) as! ListTblCell
         let dict = wishListArr[indexPath.row]
+        cell.index = indexPath.row
+        cell.delegate = self
         cell.wishList = dict
-        
-        cell.likeBtn.tag = indexPath.row
-        cell.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
-        
-        cell.directionBtn.tag = indexPath.row
-        cell.directionBtn.addTarget(self, action: #selector(directionBtnClick), for: .touchUpInside)
-        
         cell.selectionStyle = .none
         return cell
     }
     
-    @objc func directionBtnClick(sender: UIButton) {
-        let dict = wishListArr[sender.tag]
+    func listLikeBtnClick(index: Int) {
+        let dict = wishListArr[index]
+        
+        let _ = objManager.deleteLikedRestaurant(id: dict.id ?? "")
+        self.getWishListData()
+
+    }
+    
+    func listDirectionBtnClick(index: Int) {
+        let dict = wishListArr[index]
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
         vc.placeDict = dict
         self.navigationController?.pushViewController(vc, animated: true)
 
-    }
-    
-    @objc func likeBtnClick(sender: UIButton) {
-        let dict = wishListArr[sender.tag]
-        
-        let _ = objManager.deleteLikedRestaurant(id: dict.id ?? "")
-        self.getWishListData()
     }
 }

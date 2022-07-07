@@ -38,6 +38,8 @@
 		A4BFC7252875A95700F8BF68 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7242875A95700F8BF68 /* PlaceMarker.swift */; };
 		A4BFC7272875B5E000F8BF68 /* CalculateDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */; };
 		A4BFC7292875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */; };
+		A4BFC7312876D95000F8BF68 /* RestaurantDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4BFC7302876D95000F8BF68 /* RestaurantDetailView.xib */; };
+		A4BFC7332876D9E600F8BF68 /* RestaurantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7322876D9E600F8BF68 /* RestaurantDetailView.swift */; };
 		CD89A1795C787E59195BEAC2 /* Pods_FindRestaurantTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005B10D38FF23FF7C182F063 /* Pods_FindRestaurantTests.framework */; };
 		FE0403089C7533421628F373 /* Pods_FindRestaurant_FindRestaurantUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779A3DBB9891DC834F799926 /* Pods_FindRestaurant_FindRestaurantUITests.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +102,8 @@
 		A4BFC7242875A95700F8BF68 /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
 		A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateDistance.swift; sourceTree = "<group>"; };
 		A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate+Extensions.swift"; sourceTree = "<group>"; };
+		A4BFC7302876D95000F8BF68 /* RestaurantDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantDetailView.xib; sourceTree = "<group>"; };
+		A4BFC7322876D9E600F8BF68 /* RestaurantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailView.swift; sourceTree = "<group>"; };
 		C23B82E7E2295AA66F687B5E /* Pods-FindRestaurant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindRestaurant.debug.xcconfig"; path = "Target Support Files/Pods-FindRestaurant/Pods-FindRestaurant.debug.xcconfig"; sourceTree = "<group>"; };
 		D6D8B5BAF1AF4E27E9E17DEB /* Pods-FindRestaurantTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindRestaurantTests.debug.xcconfig"; path = "Target Support Files/Pods-FindRestaurantTests/Pods-FindRestaurantTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E41F02CE748FC0748BC66E69 /* Pods-FindRestaurant-FindRestaurantUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindRestaurant-FindRestaurantUITests.release.xcconfig"; path = "Target Support Files/Pods-FindRestaurant-FindRestaurantUITests/Pods-FindRestaurant-FindRestaurantUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				A46A859B28733DDD00A703CC /* UIView+Extensions.swift */,
+				A4BFC7302876D95000F8BF68 /* RestaurantDetailView.xib */,
+				A4BFC7322876D9E600F8BF68 /* RestaurantDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A46A85A42873431500A703CC /* ListTblCell.xib in Resources */,
+				A4BFC7312876D95000F8BF68 /* RestaurantDetailView.xib in Resources */,
 				A49D47B62872987E009CC151 /* LaunchScreen.storyboard in Resources */,
 				A49D47B32872987E009CC151 /* Assets.xcassets in Resources */,
 				A49D47AE2872987B009CC151 /* Main.storyboard in Resources */,
@@ -608,6 +615,7 @@
 				A46A85A32873431500A703CC /* ListTblCell.swift in Sources */,
 				A46A859628733B1E00A703CC /* GoogleDataProviderModel.swift in Sources */,
 				A4BA11D92872E6E800007C2C /* WishListVC.swift in Sources */,
+				A4BFC7332876D9E600F8BF68 /* RestaurantDetailView.swift in Sources */,
 				A46A859428733B1E00A703CC /* GooglePlace.swift in Sources */,
 				A4BFC71C2875543200F8BF68 /* Constant.swift in Sources */,
 				A4BA11D32872C23200007C2C /* NearByVC.swift in Sources */,

@@ -9,8 +9,8 @@ import UIKit
 import GoogleMaps
 import Cosmos
 
-class NearByVC: UIViewController {
-    
+class NearByVC: UIViewController, ListTableDelegate {
+    @IBOutlet weak var detailResView: RestaurantDetailView!
     @IBOutlet weak var listView: UIView!
     @IBOutlet weak var mapListView: UIView!
     @IBOutlet weak var tblView: UITableView!
@@ -22,22 +22,12 @@ class NearByVC: UIViewController {
     private var googlePlaceArr: [GooglePlace] = []
     private let objManager = LikedRestaurantManager()
     
-    
-    @IBOutlet weak var resImg: UIImageView!
-    @IBOutlet weak var resNameLbl: UILabel!
-    @IBOutlet weak var resRatingLbl: UILabel!
-    @IBOutlet weak var resDistanceLbl: UILabel!
-    @IBOutlet weak var resRatingView: CosmosView!
-    @IBOutlet weak var resAddressLbl: UILabel!
-    @IBOutlet weak var resOpenNowLbl: UILabel!
-    @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var detailViewHC: NSLayoutConstraint!
     @IBOutlet weak var noDataFound: UILabel!
-
+    
     var placeDict: GooglePlace? = nil
     
-    //    let placeDict: GooglePlace?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +43,7 @@ class NearByVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.setUpMap()
         self.setUpUI()
+        self.tblView.reloadData()
         
     }
     func setUpUI() {
@@ -66,33 +57,31 @@ class NearByVC: UIViewController {
             if #available(iOS 14.0, *) {
                 switch self.locationManager.authorizationStatus {
                 case .notDetermined:
-                    print("a")
+                    print("notDetermined")
+
                 case .restricted:
-                    print("a")
+                    print("restricted")
+
                 case .denied:
-                    print("a")
                     let alert = UIAlertController(title: "", message: Constant.Location_Permission, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Open Setting", style: .default, handler: { action in
                         switch action.style{
-                            case .default:
+                        case .default:
                             print("default")
                             UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
-
-                            
-                            case .cancel:
+                        case .cancel:
                             print("cancel")
                             UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
-
-                            
-                            
-                            case .destructive:
+                        case .destructive:
                             print("destructive")
                             
+                        @unknown default:
+                            print("error")
                         }
                     }))
                     self.present(alert, animated: true, completion: nil)
-
-
+                    
+                    
                 case .authorizedAlways, .authorizedWhenInUse:
                     
                     self.locationManager.delegate = self
@@ -152,60 +141,18 @@ class NearByVC: UIViewController {
     }
     
     @objc func mapBtnClick(sender: AnyObject){
+        if self.googlePlaceArr.count > 0 {
+            self.placeDict = googlePlaceArr[0]
+            self.setDataMap(self.placeDict)
+        }
         mapListView.isHidden = false
         listView.isHidden = true
     }
     
     @objc func listBtnClick(sender: AnyObject){
+        self.tblView.reloadData()
         mapListView.isHidden = true
         listView.isHidden = false
-    }
-    
-    @IBAction func directionButtonClick(_ sender: UIButton) {
-
-        if self.googlePlaceArr.count > 0 {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
-            let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: placeDict?.coordinate)
-            placeDict = self.googlePlaceArr[0]
-            let Liked = LikedRestaurantModel(name: placeDict?.name,
-                                 address: placeDict?.address,
-                                 photoReference: placeDict?.photos[0].photoReference,
-                                 distance: dis,
-                                 rating: placeDict?.rating,
-                                 latitude: placeDict?.coordinate.latitude,
-                                 longitude: placeDict?.coordinate.longitude,
-                                 openNow: placeDict?.openingHours.openNow,
-                                 id: placeDict?.reference)
-            
-            vc.placeDict = Liked
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-        
-    }
-    
-    @IBAction func likeBtnClick(_ sender: UIButton) {
-        if !objManager.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
-            let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: placeDict?.coordinate)
-
-            objManager.createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel(name: placeDict?.name,
-                                                                                         address: placeDict?.address,
-                                                                                         photoReference: placeDict?.photos[0].photoReference,
-                                                                                         distance: dis,
-                                                                                         rating: placeDict?.rating,
-                                                                                         latitude: placeDict?.coordinate.latitude,
-                                                                                         longitude: placeDict?.coordinate.longitude,
-                                                                                         openNow: placeDict?.openingHours.openNow,
-                                                                                         id: placeDict?.reference))
-            
-        } else {
-            let _ = objManager.deleteLikedRestaurant(id: placeDict?.reference ?? "")
-        }
-        if objManager.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
-        } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
-        }
     }
     
     func fetchPlaces(near coordinate: CLLocationCoordinate2D) {
@@ -230,10 +177,25 @@ class NearByVC: UIViewController {
             self.mapView.setMinZoom(1, maxZoom: 15)
             let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
             self.mapView.animate(with: update)
+            
             if self.googlePlaceArr.count > 0 {
-                self.setDataMap(self.googlePlaceArr[0])
+                self.placeDict = googlePlaceArr[0]
+                self.setDataMap(self.placeDict)
             }
         }
+    }
+    func setDataMap(_ placeDict: GooglePlace?) {
+        detailView.isHidden = false
+        for view in detailResView.subviews {
+            if view is RestaurantDetailView {
+                view.removeFromSuperview()
+            }
+        }
+        let view = RestaurantDetailView.getGooglePlaceData(frame: detailResView.frame, placeDetail: placeDict, index: 0)
+        view.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
+        view.directionBtn.addTarget(self, action: #selector(directionBtnClick), for: .touchUpInside)
+        
+        self.detailResView.addSubview(view)
     }
     
 }
@@ -257,40 +219,21 @@ extension NearByVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListTblCell", for: indexPath) as! ListTblCell
         let dict = googlePlaceArr[indexPath.row]
+        cell.index = indexPath.row
         cell.googlePlace = dict
-        cell.likeBtn.tag = indexPath.row
-        cell.likeBtn.addTarget(self, action: #selector(likeButtonClick), for: .touchUpInside)
-        cell.directionBtn.tag = indexPath.row
-        cell.directionBtn.addTarget(self, action: #selector(directionBtnClick), for: .touchUpInside)
+        cell.delegate = self
+        
         cell.selectionStyle = .none
         return cell
     }
     
-    @objc func directionBtnClick(sender: UIButton) {
-        let dict = googlePlaceArr[sender.tag]
-        let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: dict.coordinate)
-
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
-        let Liked = LikedRestaurantModel(name: dict.name,
-                                         address: dict.address,
-                                         photoReference: dict.photos[0].photoReference,
-                                         distance: dis,
-                                         rating: dict.rating,
-                                         latitude: dict.coordinate.latitude,
-                                         longitude: dict.coordinate.longitude,
-                                         openNow: dict.openingHours.openNow,
-                                         id: dict.reference)
-        vc.placeDict = Liked
-        self.navigationController?.pushViewController(vc, animated: true)
-        
-    }
     
-    @objc func likeButtonClick(sender: UIButton) {
-        let dict = googlePlaceArr[sender.tag]
+    func listLikeBtnClick(index: Int) {
+        let dict = googlePlaceArr[index]
         
         if !objManager.checkIfLikedRestaurantExist(id: dict.reference) {
             let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: dict.coordinate)
-
+            
             objManager.createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel(name: dict.name,
                                                                                          address: dict.address,
                                                                                          photoReference: dict.photos[0].photoReference,
@@ -306,8 +249,27 @@ extension NearByVC: UITableViewDataSource {
         }
         self.tblView.reloadData()
     }
+    
+    func listDirectionBtnClick(index: Int) {
+        let dict = googlePlaceArr[index]
+        let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: dict.coordinate)
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        let Liked = LikedRestaurantModel(name: dict.name,
+                                         address: dict.address,
+                                         photoReference: dict.photos[0].photoReference,
+                                         distance: dis,
+                                         rating: dict.rating,
+                                         latitude: dict.coordinate.latitude,
+                                         longitude: dict.coordinate.longitude,
+                                         openNow: dict.openingHours.openNow,
+                                         id: dict.reference)
+        vc.placeDict = Liked
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
 }
-
 // MARK: - CLLocationManagerDelegate
 extension NearByVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -349,34 +311,46 @@ extension NearByVC: GMSMapViewDelegate {
         return false
     }
     
-    func setDataMap(_ placeDict: GooglePlace?) {
-        let photoreference = placeDict?.photos[0].photoReference
-        let urlString = APIHelper.baseUrl + "place/photo?maxwidth=5184&photoreference=\(photoreference ?? "")&key=\(googleApiKey)"
-
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
-        self.resNameLbl.text = placeDict?.name
-        self.resRatingLbl.text = "Rating"
-        let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: placeDict?.coordinate)
-        self.resDistanceLbl.text = "\(dis) Miles"
-        self.resRatingView.rating = placeDict?.rating ?? 5
-        self.resAddressLbl.text = placeDict?.address
-        if placeDict?.openingHours.openNow ?? false {
-            self.resOpenNowLbl.textColor = .blue
-            self.resOpenNowLbl.text = "Open Now"
-
+    
+    @objc func likeBtnClick() {
+        if !objManager.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
+            let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: placeDict?.coordinate)
+            
+            objManager.createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel(name: placeDict?.name,
+                                                                                         address: placeDict?.address,
+                                                                                         photoReference: placeDict?.photos[0].photoReference,
+                                                                                         distance: dis,
+                                                                                         rating: placeDict?.rating,
+                                                                                         latitude: placeDict?.coordinate.latitude,
+                                                                                         longitude: placeDict?.coordinate.longitude,
+                                                                                         openNow: placeDict?.openingHours.openNow,
+                                                                                         id: placeDict?.reference))
+            
         } else {
-            self.resOpenNowLbl.textColor = .red
-            self.resOpenNowLbl.text = "Close"
-
+            let _ = objManager.deleteLikedRestaurant(id: placeDict?.reference ?? "")
         }
-        if objManager.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
-        } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
+        if placeDict != nil {
+            self.setDataMap(placeDict)
+            
         }
-        detailView.isHidden = false
     }
     
+    @objc func directionBtnClick() {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: placeDict?.coordinate)
+        let Liked = LikedRestaurantModel(name: placeDict?.name,
+                                         address: placeDict?.address,
+                                         photoReference: placeDict?.photos[0].photoReference,
+                                         distance: dis,
+                                         rating: placeDict?.rating,
+                                         latitude: placeDict?.coordinate.latitude,
+                                         longitude: placeDict?.coordinate.longitude,
+                                         openNow: placeDict?.openingHours.openNow,
+                                         id: placeDict?.reference)
+        
+        vc.placeDict = Liked
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         mapView.selectedMarker = nil
         return false
