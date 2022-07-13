@@ -11,13 +11,16 @@ import GooglePlaces
 import Cosmos
 
 class MapVC: UIViewController {
+    @IBOutlet weak var resImg: UIImageView!
+    @IBOutlet weak var resNameLbl: UILabel!
+    @IBOutlet weak var resRatingLbl: UILabel!
+    @IBOutlet weak var resDistanceLbl: UILabel!
+    @IBOutlet weak var resRatingView: CosmosView!
+    @IBOutlet weak var resAddressLbl: UILabel!
+    @IBOutlet weak var resOpenNowLbl: UILabel!
+    @IBOutlet weak var likeBtn: UIButton!
     
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var detailResView: RestaurantDetailView!
-    
-    private let objManager = LikedRestaurantManager()
-    
-    
     private let dataProvider = GoogleDataProviderModel()
     var placeDict = LikedRestaurantModel()
     var googlePlaceDict: GooglePlace?
@@ -38,33 +41,43 @@ class MapVC: UIViewController {
     
     func setUpUI() {
         let desination = CLLocationCoordinate2D(latitude: self.placeDict.latitude ?? 0.0, longitude: self.placeDict.longitude ?? 0.0)
-        self.fetchRoute(from: currentLocation, to: desination)
+        self.fetchRoute(from: LocationManager.shared.currentLocation, to: desination)
     }
     
     func setUpData() {
-        
-        for view in detailResView.subviews {
-            if view is RestaurantDetailView {
-                view.removeFromSuperview()
-            }
+        let photoreference = placeDict.photoReference
+        let urlString = APIHelper.baseUrl + "\(EndPoint.photoAPI.rawValue)\(photoreference ?? "")&key=\(googleApiKey)"
+        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
+        self.resNameLbl.text = placeDict.name
+        self.resRatingLbl.text = "Rating"
+        self.resDistanceLbl.text = "\(placeDict.distance ?? 0.0) Miles"
+        self.resRatingView.rating = placeDict.rating ?? 5
+        self.resAddressLbl.text = placeDict.address
+        if placeDict.openNow ?? false {
+            self.resOpenNowLbl.textColor = .blue
+            self.resOpenNowLbl.text = "Open Now"
+        } else {
+            self.resOpenNowLbl.textColor = .red
+            self.resOpenNowLbl.text = "Close"
         }
-        let view = RestaurantDetailView.getWishListPlaceData(frame: detailResView.frame, wishList: placeDict, index: 0)
-        view.directionBtn.isHidden = true
-        view.likeBtn.addTarget(self, action: #selector(likeBtnClick), for: .touchUpInside)
-        self.detailResView.addSubview(view)
-        
+        if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
+            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
+        } else {
+            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
+        }
     }
     
-    @objc func likeBtnClick(_ sender: UIButton) {
+    @IBAction func likeBtnClick(_ sender: UIButton) {
         
-        if !objManager.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
+        if !LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
             let desti = CLLocationCoordinate2D(latitude: placeDict.latitude ?? 0.0, longitude: placeDict.longitude ?? 0)
-            let dis = CalculateDistance.sharedInstance.distanceInMile(source: currentLocation, destination: desti)
+            let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: desti)
             
-            objManager.createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel(name: placeDict.name, address: placeDict.address, photoReference: placeDict.photoReference, distance: dis, rating: placeDict.rating, latitude: placeDict.latitude, longitude: placeDict.longitude, openNow: placeDict.openNow, id: placeDict.id))
+            LikedRestaurantManager.shared.createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel(name: placeDict.name, address: placeDict.address, photoReference: placeDict.photoReference, distance: dis, rating: placeDict.rating, latitude: placeDict.latitude, longitude: placeDict.longitude, openNow: placeDict.openNow, id: placeDict.id))
             
         } else {
-            let _ = objManager.deleteLikedRestaurant(id: placeDict.id ?? "")
+            let _ = LikedRestaurantManager.shared.deleteLikedRestaurant(id: placeDict.id ?? "")
+            self.navigationController?.popViewController(animated: true)
         }
         self.setUpData()
     }
@@ -103,7 +116,6 @@ class MapVC: UIViewController {
         destinationMarker.position = CLLocationCoordinate2D(latitude: destination.latitude, longitude: destination.longitude)
         destinationMarker.title = self.placeDict.name
         destinationMarker.map = self.mapView
-        
         self.mapView.moveCamera(update)
     }
 }

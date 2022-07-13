@@ -8,8 +8,9 @@
 import Foundation
 
 enum EndPoint: String {
-    case placeApi = "place/nearbysearch/json?"
+    case placeAPI = "place/nearbysearch/json?"
     case directionAPI = "directions/json?"
+    case photoAPI = "place/photo?maxwidth=5184&photoreference="
 }
 
 class APIHelper{

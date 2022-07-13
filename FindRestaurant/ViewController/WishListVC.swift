@@ -12,7 +12,6 @@ class WishListVC: UIViewController, ListTableDelegate {
     
     @IBOutlet weak var tblView: UITableView!
     var wishListArr : [LikedRestaurantModel] = []
-    private var objManager = LikedRestaurantManager()
     @IBOutlet weak var noDataFound: UILabel!
 
     override func viewDidLoad() {
@@ -39,7 +38,7 @@ class WishListVC: UIViewController, ListTableDelegate {
         
     }
     func getWishListData() {
-        wishListArr = objManager.getAllLikedRestaurantRecords() ?? []
+        wishListArr = LikedRestaurantManager.shared.getAllLikedRestaurantRecords() ?? []
         if wishListArr.count == 0 {
             self.noDataFound.isHidden = false
             self.tblView.isHidden = true
@@ -50,16 +49,6 @@ class WishListVC: UIViewController, ListTableDelegate {
         self.tblView.reloadData()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -84,7 +73,7 @@ extension WishListVC: UITableViewDelegate, UITableViewDataSource {
     func listLikeBtnClick(index: Int) {
         let dict = wishListArr[index]
         
-        let _ = objManager.deleteLikedRestaurant(id: dict.id ?? "")
+        let _ = LikedRestaurantManager.shared.deleteLikedRestaurant(id: dict.id ?? "")
         self.getWishListData()
 
     }

@@ -9,6 +9,7 @@ import Foundation
 
 
 class LikedRestaurantManager{
+    static let shared = LikedRestaurantManager()
     private let _likedRestaurantDataRepository = LikedRestaurantDataRepository()
     
     func createLikedRestaurantRecord(likedRestaurant: LikedRestaurantModel){

@@ -16,7 +16,7 @@ class GoogleDataProviderModel {
     func fetchPlaces(coordinate: CLLocationCoordinate2D, completion: @escaping PlacesCompletion
     ) -> Void {
         
-        let url = EndPoint.placeApi.rawValue + "location=\(coordinate)&radius=1500&types=restaurant&keyword=cruise&key=\(googleApiKey)"
+        let url = EndPoint.placeAPI.rawValue + "location=\(coordinate)&radius=1500&types=restaurant&keyword=cruise&key=\(googleApiKey)"
         WebService.shared.getDataFromWebService(task: url, httpMethod: .POST, modType: GooglePlace.Response.self) { googlePlaceArr, err in
             if err == nil {
                 if let result = googlePlaceArr?.results {
