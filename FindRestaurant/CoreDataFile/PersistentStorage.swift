@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-class PersistentStorage{
+open class PersistentStorage {
     
-    private init(){}
+    public init(){}
     static let shared = PersistentStorage()
     
     // MARK: - Core Data stack

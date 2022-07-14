@@ -8,7 +8,6 @@
 import UIKit
 
 class WishListVC: UIViewController, ListTableDelegate {
-   
     
     @IBOutlet weak var tblView: UITableView!
     var wishListArr : [LikedRestaurantModel] = []
@@ -24,7 +23,7 @@ class WishListVC: UIViewController, ListTableDelegate {
     
     private func setUpNavigationBar() {
         self.navigationItem.title = "Wish List"
-        self.navigationItem.titleView?.tintColor = UIColor(hexString: "282f58")
+        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +71,6 @@ extension WishListVC: UITableViewDelegate, UITableViewDataSource {
     
     func listLikeBtnClick(index: Int) {
         let dict = wishListArr[index]
-        
         let _ = LikedRestaurantManager.shared.deleteLikedRestaurant(id: dict.id ?? "")
         self.getWishListData()
 

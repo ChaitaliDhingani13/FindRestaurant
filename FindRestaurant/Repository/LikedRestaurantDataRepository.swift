@@ -9,10 +9,6 @@ import Foundation
 import CoreData
 
 protocol LikedRestaurantRepository {
-    
-    
-    
-    
     func create(likedRestaurant: LikedRestaurantModel)
     func getAll() -> [LikedRestaurantModel]?
     func get(byIdentifier id:String) -> LikedRestaurantModel?
@@ -75,9 +71,6 @@ struct LikedRestaurantDataRepository: LikedRestaurantRepository{
         restaurant?.distance = likedRestaurant.distance ?? 0.0
         restaurant?.latitude = likedRestaurant.latitude ?? 0.0
         restaurant?.longitude = likedRestaurant.longitude ?? 0.0
-
-//        restaurant?.id = likedRestaurant.id
-        
         PersistentStorage.shared.saveContext()
         
         return true

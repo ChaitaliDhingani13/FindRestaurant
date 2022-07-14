@@ -8,8 +8,8 @@
 import UIKit
 import CoreLocation
 
-typealias PlacesCompletion = ([GooglePlace]) -> Void
-typealias MapCompletion = (GoogleMap?) -> Void
+typealias PlacesCompletion = ([GooglePlaceModel]) -> Void
+typealias MapCompletion = (GoogleMapModel?) -> Void
 
 class GoogleDataProviderModel {
     
@@ -17,16 +17,13 @@ class GoogleDataProviderModel {
     ) -> Void {
         
         let url = EndPoint.placeAPI.rawValue + "location=\(coordinate)&radius=1500&types=restaurant&keyword=cruise&key=\(googleApiKey)"
-        WebService.shared.getDataFromWebService(task: url, httpMethod: .POST, modType: GooglePlace.Response.self) { googlePlaceArr, err in
+        WebService.shared.getDataFromWebService(task: url, httpMethod: .POST, modType: GooglePlaceModel.Response.self) { googlePlaceArr, err in
             if err == nil {
                 if let result = googlePlaceArr?.results {
                     completion(result)
-
                 }
-
             } else {
                 completion([])
-
             }
         }
         
@@ -36,7 +33,7 @@ class GoogleDataProviderModel {
     ) -> Void {
 
         let url = EndPoint.directionAPI.rawValue + "origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=false&mode=driving&key=\(googleApiKey)"
-        WebService.shared.getDataFromWebService(task: url, httpMethod: .POST, modType: GoogleMap.self) { googleMap, err in
+        WebService.shared.getDataFromWebService(task: url, httpMethod: .POST, modType: GoogleMapModel.self) { googleMap, err in
             if err == nil {
                 if let result = googleMap {
                     completion(result)

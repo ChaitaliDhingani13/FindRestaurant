@@ -27,7 +27,7 @@ class ListTblCell: UITableViewCell {
     @IBOutlet weak var likeBtn: UIButton!
     var delegate: ListTableDelegate?
     var index = Int()
-    var googlePlace: GooglePlace? {
+    var googlePlace: GooglePlaceModel? {
         
         willSet {
             self.googlePlace = newValue
@@ -52,7 +52,7 @@ class ListTblCell: UITableViewCell {
 
     private func setupGooglePlaceData() {
                
-        let photoreference = googlePlace?.photos[0].photoReference
+        let photoreference = googlePlace?.photos?[0].photoReference
         let urlString = APIHelper.baseUrl + "\(EndPoint.photoAPI.rawValue)\(photoreference ?? "")&key=\(googleApiKey)"
 
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: googlePlace?.coordinate)
@@ -65,7 +65,7 @@ class ListTblCell: UITableViewCell {
         self.resAddressLbl.text = googlePlace?.address
         self.likeBtn.tag = index
         self.directionBtn.tag = index
-        if googlePlace?.openingHours.openNow ?? false {
+        if googlePlace?.openingHours?.openNow ?? false {
             self.resOpenNowLbl.textColor = .blue
             self.resOpenNowLbl.text = "Open Now"
 
@@ -75,9 +75,9 @@ class ListTblCell: UITableViewCell {
 
         }
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: googlePlace?.reference ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
         
     }
@@ -112,9 +112,9 @@ class ListTblCell: UITableViewCell {
             
         }
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: wishList?.id ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -7,15 +7,11 @@
 
 import Foundation
 
-
-
-import Foundation
-
 // MARK: - Welcome
-struct GoogleMap: Codable {
-    let geocodedWaypoints: [GeocodedWaypoint]
-    let routes: [Route]
-    let status: String
+struct GoogleMapModel: Codable {
+    let geocodedWaypoints: [GeocodedWaypoint]?
+    let routes: [Route]?
+    let status: String?
 
     enum CodingKeys: String, CodingKey {
         case geocodedWaypoints = "geocoded_waypoints"
@@ -25,8 +21,8 @@ struct GoogleMap: Codable {
 
 // MARK: - GeocodedWaypoint
 struct GeocodedWaypoint: Codable {
-    let geocoderStatus, placeID: String
-    let types: [String]
+    let geocoderStatus, placeID: String?
+    let types: [String]?
 
     enum CodingKeys: String, CodingKey {
         case geocoderStatus = "geocoder_status"
@@ -37,12 +33,12 @@ struct GeocodedWaypoint: Codable {
 
 // MARK: - Route
 struct Route: Codable {
-    let bounds: Bounds
-    let copyrights: String
-    let legs: [Leg]
-    let overviewPolyline: Polyline
-    let summary: String
-    let warnings, waypointOrder: [JSONAny]
+    let bounds: Bounds?
+    let copyrights: String?
+    let legs: [Leg]?
+    let overviewPolyline: Polyline?
+    let summary: String?
+    let warnings, waypointOrder: [JSONAny]?
 
     enum CodingKeys: String, CodingKey {
         case bounds, copyrights, legs
@@ -54,23 +50,23 @@ struct Route: Codable {
 
 // MARK: - Bounds
 struct Bounds: Codable {
-    let northeast, southwest: Northeast
+    let northeast, southwest: Northeast?
 }
 
 // MARK: - Northeast
 struct Northeast: Codable {
-    let lat, lng: Double
+    let lat, lng: Double?
 }
 
 // MARK: - Leg
 struct Leg: Codable {
-    let distance, duration: Distance
-    let endAddress: String
-    let endLocation: Northeast
-    let startAddress: String
-    let startLocation: Northeast
-    let steps: [Step]
-    let trafficSpeedEntry, viaWaypoint: [JSONAny]
+    let distance, duration: Distance?
+    let endAddress: String?
+    let endLocation: Northeast?
+    let startAddress: String?
+    let startLocation: Northeast?
+    let steps: [Step]?
+    let trafficSpeedEntry, viaWaypoint: [JSONAny]?
 
     enum CodingKeys: String, CodingKey {
         case distance, duration
@@ -113,7 +109,7 @@ struct Step: Codable {
 
 // MARK: - Polyline
 struct Polyline: Codable {
-    let points: String
+    let points: String?
 }
 
 // MARK: - Encode/decode helpers
@@ -144,7 +140,7 @@ class JSONNull: Codable, Hashable {
 }
 
 class JSONCodingKey: CodingKey {
-    let key: String
+    let key: String?
 
     required init?(intValue: Int) {
         return nil
@@ -159,13 +155,13 @@ class JSONCodingKey: CodingKey {
     }
 
     var stringValue: String {
-        return key
+        return key ?? ""
     }
 }
 
 class JSONAny: Codable {
 
-    let value: Any
+    let value: Any?
 
     static func decodingError(forCodingPath codingPath: [CodingKey]) -> DecodingError {
         let context = DecodingError.Context(codingPath: codingPath, debugDescription: "Cannot decode JSONAny")

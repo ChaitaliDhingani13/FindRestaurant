@@ -8,20 +8,20 @@
 import UIKit
 import CoreLocation
 
-struct GooglePlace: Codable {
-    let name: String
-    let address: String
-    let reference: String
-    let types: [String]
-    let photos: [Photo]
-    let rating: Double
+struct GooglePlaceModel: Codable {
+    let name: String?
+    let address: String?
+    let reference: String?
+    let types: [String]?
+    let photos: [Photo]?
+    let rating: Double?
 
-    let openingHours: OpeningHours
+    let openingHours: OpeningHours?
 
-    private let geometry: Gemoetry
+    private let geometry: Gemoetry?
 
-    var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: geometry.location.lat, longitude: geometry.location.lng)
+    var coordinate: CLLocationCoordinate2D? {
+        return CLLocationCoordinate2D(latitude: geometry?.location.lat ?? 0.0, longitude: geometry?.location.lng ?? 0.0)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -36,9 +36,9 @@ struct GooglePlace: Codable {
     }
 }
 
-extension GooglePlace {
+extension GooglePlaceModel {
     struct Response: Codable {
-        let results: [GooglePlace]
+        let results: [GooglePlaceModel]?
         let errorMessage: String?
     }
     
@@ -46,14 +46,14 @@ extension GooglePlace {
         let location: Coordinate
     }
     struct OpeningHours: Codable {
-        let openNow: Bool
+        let openNow: Bool?
 
         enum CodingKeys: String, CodingKey {
             case openNow = "open_now"
         }
     }
     struct Photo: Codable {
-        let photoReference: String
+        let photoReference: String?
         
         enum CodingKeys: String, CodingKey {
             case photoReference = "photo_reference"
@@ -61,7 +61,7 @@ extension GooglePlace {
     }
     
     private struct Coordinate: Codable {
-        let lat: CLLocationDegrees
-        let lng: CLLocationDegrees
+        let lat: CLLocationDegrees?
+        let lng: CLLocationDegrees?
     }
 }

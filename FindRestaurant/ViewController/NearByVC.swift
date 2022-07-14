@@ -27,13 +27,13 @@ class NearByVC: UIViewController, ListTableDelegate {
     @IBOutlet private weak var mapView: GMSMapView!
     private let dataProvider = GoogleDataProviderModel()
     private let searchRadius: Double = 1500
-    private var googlePlaceArr: [GooglePlace] = []
+    private var googlePlaceArr: [GooglePlaceModel] = []
     
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var detailViewHC: NSLayoutConstraint!
     @IBOutlet weak var noDataFound: UILabel!
     
-    var placeDict: GooglePlace? = nil
+    var placeDict: GooglePlaceModel? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpNavigationBar()
@@ -72,10 +72,10 @@ class NearByVC: UIViewController, ListTableDelegate {
     private func setUpNavigationBar() {
         let MapButton = UIButton(type: .custom)
         MapButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let mapIcon = UIImage(named: "icn_map")
+        let mapIcon = ImageUtility.shared.mapImg
         MapButton.setBackgroundImage(mapIcon, for: .normal)
         
-        MapButton.tintColor = UIColor(hexString: "282f58")
+        MapButton.tintColor = ColorUtility.shared.themeColor
         MapButton.addTarget(self, action: #selector(mapBtnClick(sender:)), for: .touchUpInside)
         if #available(iOS 11, *) {
             MapButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -84,9 +84,9 @@ class NearByVC: UIViewController, ListTableDelegate {
         let MapBarBtn = UIBarButtonItem(customView: MapButton)
         let ListButton = UIButton(type: .custom)
         ListButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let ListIcon = UIImage(named: "icn_list")
+        let ListIcon = ImageUtility.shared.listImg
         ListButton.setBackgroundImage(ListIcon, for: .normal)
-        ListButton.tintColor = UIColor(hexString: "282f58")
+        ListButton.tintColor = ColorUtility.shared.themeColor
         ListButton.addTarget(self, action: #selector(listBtnClick(sender:)), for: .touchUpInside)
         if #available(iOS 11, *) {
             ListButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -104,7 +104,7 @@ class NearByVC: UIViewController, ListTableDelegate {
         }
         
         self.navigationItem.title = "Nearby Restaurants"
-        self.navigationItem.titleView?.tintColor = UIColor(hexString: "282f58")
+        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
     }
     
     @objc func mapBtnClick(sender: AnyObject){
@@ -136,7 +136,7 @@ class NearByVC: UIViewController, ListTableDelegate {
             }
             self.tblView.reloadData()
             self.googlePlaceArr.forEach { place in
-                let marker = PlaceMarker(place: place)
+                let marker = PlaceMarkerModel(place: place)
                 marker.map = self.mapView
                 bounds = bounds.includingCoordinate(marker.position)
                 
@@ -151,9 +151,9 @@ class NearByVC: UIViewController, ListTableDelegate {
             }
         }
     }
-    func setDataMap(_ placeDict: GooglePlace?) {
+    func setDataMap(_ placeDict: GooglePlaceModel?) {
         detailView.isHidden = false
-        let photoreference = placeDict?.photos[0].photoReference
+        let photoreference = placeDict?.photos?[0].photoReference
         let urlString = APIHelper.baseUrl + "\(EndPoint.photoAPI.rawValue)\(photoreference ?? "")&key=\(googleApiKey)"
 
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: placeDict?.coordinate)
@@ -164,7 +164,7 @@ class NearByVC: UIViewController, ListTableDelegate {
         self.resDistanceLbl.text = "\(dis) Miles"
         self.resRatingView.rating = placeDict?.rating ?? 5
         self.resAddressLbl.text = placeDict?.address
-        if placeDict?.openingHours.openNow ?? false {
+        if placeDict?.openingHours?.openNow ?? false {
             self.resOpenNowLbl.textColor = .blue
             self.resOpenNowLbl.text = "Open Now"
 
@@ -174,9 +174,9 @@ class NearByVC: UIViewController, ListTableDelegate {
 
         }
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
-            self.likeBtn.setImage(UIImage(named: "icn_like"), for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(UIImage(named: "ic_dislike"), for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
     }
 }
@@ -211,23 +211,22 @@ extension NearByVC: UITableViewDataSource {
     func listLikeBtnClick(index: Int) {
         let dict = googlePlaceArr[index]
         
-        if !LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: dict.reference) {
+        if !LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: dict.reference ?? "") {
             let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: dict.coordinate)
-            
             let res = LikedRestaurantModel(name: dict.name,
                                            address: dict.address,
-                                           photoReference: dict.photos[0].photoReference,
+                                           photoReference: dict.photos?[0].photoReference,
                                            distance: dis,
                                            rating: dict.rating,
-                                           latitude: dict.coordinate.latitude,
-                                           longitude: dict.coordinate.longitude,
-                                           openNow: dict.openingHours.openNow,
+                                           latitude: dict.coordinate?.latitude,
+                                           longitude: dict.coordinate?.longitude,
+                                           openNow: dict.openingHours?.openNow,
                                            id: dict.reference)
             
             LikedRestaurantManager.shared.createLikedRestaurantRecord(likedRestaurant: res)
             
         } else {
-            let _ = LikedRestaurantManager.shared.deleteLikedRestaurant(id: dict.reference)
+            let _ = LikedRestaurantManager.shared.deleteLikedRestaurant(id: dict.reference ?? "")
         }
         self.tblView.reloadData()
     }
@@ -239,12 +238,12 @@ extension NearByVC: UITableViewDataSource {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let Liked = LikedRestaurantModel(name: dict.name,
                                          address: dict.address,
-                                         photoReference: dict.photos[0].photoReference,
+                                         photoReference: dict.photos?[0].photoReference,
                                          distance: dis,
                                          rating: dict.rating,
-                                         latitude: dict.coordinate.latitude,
-                                         longitude: dict.coordinate.longitude,
-                                         openNow: dict.openingHours.openNow,
+                                         latitude: dict.coordinate?.latitude,
+                                         longitude: dict.coordinate?.longitude,
+                                         openNow: dict.openingHours?.openNow,
                                          id: dict.reference)
         vc.placeDict = Liked
         self.navigationController?.pushViewController(vc, animated: true)
@@ -257,7 +256,7 @@ extension NearByVC: UITableViewDataSource {
 extension NearByVC: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let placeMarker = marker as? PlaceMarker
+        let placeMarker = marker as? PlaceMarkerModel
         placeDict = placeMarker?.place
         self.setDataMap(placeDict)
         return false
@@ -269,12 +268,12 @@ extension NearByVC: GMSMapViewDelegate {
             let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: placeDict?.coordinate)
             let likeRes = LikedRestaurantModel(name: placeDict?.name,
                                                address: placeDict?.address,
-                                               photoReference: placeDict?.photos[0].photoReference,
+                                               photoReference: placeDict?.photos?[0].photoReference,
                                                distance: dis,
                                                rating: placeDict?.rating,
-                                               latitude: placeDict?.coordinate.latitude,
-                                               longitude: placeDict?.coordinate.longitude,
-                                               openNow: placeDict?.openingHours.openNow,
+                                               latitude: placeDict?.coordinate?.latitude,
+                                               longitude: placeDict?.coordinate?.longitude,
+                                               openNow: placeDict?.openingHours?.openNow,
                                                id: placeDict?.reference)
             LikedRestaurantManager.shared.createLikedRestaurantRecord(likedRestaurant: likeRes)
             
@@ -292,12 +291,12 @@ extension NearByVC: GMSMapViewDelegate {
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: placeDict?.coordinate)
         let Liked = LikedRestaurantModel(name: placeDict?.name,
                                          address: placeDict?.address,
-                                         photoReference: placeDict?.photos[0].photoReference,
+                                         photoReference: placeDict?.photos?[0].photoReference,
                                          distance: dis,
                                          rating: placeDict?.rating,
-                                         latitude: placeDict?.coordinate.latitude,
-                                         longitude: placeDict?.coordinate.longitude,
-                                         openNow: placeDict?.openingHours.openNow,
+                                         latitude: placeDict?.coordinate?.latitude,
+                                         longitude: placeDict?.coordinate?.longitude,
+                                         openNow: placeDict?.openingHours?.openNow,
                                          id: placeDict?.reference)
         
         vc.placeDict = Liked
