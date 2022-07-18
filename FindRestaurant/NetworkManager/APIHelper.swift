@@ -10,7 +10,7 @@ import Foundation
 enum EndPoint: String {
     case placeAPI = "place/nearbysearch/json?"
     case directionAPI = "directions/json?"
-    case photoAPI = "place/photo?maxwidth=5184&photoreference="
+    case photoAPI = "lace/photo?maxwidth=5184&photoreference="
 }
 
 class APIHelper{

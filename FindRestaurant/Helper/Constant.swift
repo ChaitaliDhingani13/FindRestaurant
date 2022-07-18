@@ -11,7 +11,5 @@ class Constant {
     static let APIURLError = "Invalid URL"
     static let APIJsonError = "Invalid json data"
     static let APIParsingError = "API Parsing Fail"
-    static let CellHomeCollection = "cellhomeCollection"
-    static let CellTableHomeTableViewCell = "cellTableHomeTableViewCell"
 
 }

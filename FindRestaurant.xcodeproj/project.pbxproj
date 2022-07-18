@@ -27,6 +27,7 @@
 		A49D47C12872987E009CC151 /* FindRestaurantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49D47C02872987E009CC151 /* FindRestaurantTests.swift */; };
 		A49D47CB2872987E009CC151 /* FindRestaurantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49D47CA2872987E009CC151 /* FindRestaurantUITests.swift */; };
 		A49D47CD2872987E009CC151 /* FindRestaurantUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49D47CC2872987E009CC151 /* FindRestaurantUITestsLaunchTests.swift */; };
+		A49F75C128818DB3005495C0 /* APICallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49F75C028818DB3005495C0 /* APICallTests.swift */; };
 		A4BA11D32872C23200007C2C /* NearByVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D22872C23200007C2C /* NearByVC.swift */; };
 		A4BA11D72872CD2800007C2C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D62872CD2800007C2C /* Extension.swift */; };
 		A4BA11D92872E6E800007C2C /* WishListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA11D82872E6E800007C2C /* WishListVC.swift */; };
@@ -93,6 +94,7 @@
 		A49D47CA2872987E009CC151 /* FindRestaurantUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRestaurantUITests.swift; sourceTree = "<group>"; };
 		A49D47CC2872987E009CC151 /* FindRestaurantUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRestaurantUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A49D47D928729EC4009CC151 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A49F75C028818DB3005495C0 /* APICallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallTests.swift; sourceTree = "<group>"; };
 		A4BA11D22872C23200007C2C /* NearByVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByVC.swift; sourceTree = "<group>"; };
 		A4BA11D62872CD2800007C2C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		A4BA11D82872E6E800007C2C /* WishListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListVC.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				A49D47C02872987E009CC151 /* FindRestaurantTests.swift */,
 				A4E4204A288035A9008F6EDA /* CoreDataTests.swift */,
+				A49F75C028818DB3005495C0 /* APICallTests.swift */,
 			);
 			path = FindRestaurantTests;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A49F75C128818DB3005495C0 /* APICallTests.swift in Sources */,
 				A4E4204B288035A9008F6EDA /* CoreDataTests.swift in Sources */,
 				A49D47C12872987E009CC151 /* FindRestaurantTests.swift in Sources */,
 			);

@@ -58,7 +58,6 @@ class WebService: NSObject{
             urlRequest.httpBody = httpBody
         }
         
-        
         URLSession.shared.dataTask(with: urlRequest) { (data, res, err) in
             guard let data = data else {
                 completion(nil, Constant.APIParsingError)
@@ -71,13 +70,10 @@ class WebService: NSObject{
                 }
                 return
             }
-            
             DispatchQueue.main.async {
                 
                 completion(placesResponse, nil)
             }
-            
         }.resume()
     }
-    
 }
