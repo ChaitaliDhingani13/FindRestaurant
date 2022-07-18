@@ -163,7 +163,9 @@
                                                     <constraint firstAttribute="height" constant="20" id="i1B-EW-05U"/>
                                                 </constraints>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="icn_like"/>
+                                                <state key="normal" image="icn_like">
+                                                    <color key="titleColor" name="282f58"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="likeBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="71s-SC-Eb8"/>
                                                 </connections>

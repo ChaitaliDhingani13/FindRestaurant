@@ -74,6 +74,7 @@ class ListTblCell: UITableViewCell {
             self.resOpenNowLbl.text = "Close"
 
         }
+        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: googlePlace?.reference ?? "") {
             self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
@@ -111,6 +112,7 @@ class ListTblCell: UITableViewCell {
             self.resOpenNowLbl.text = "Close"
             
         }
+        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: wishList?.id ?? "") {
             self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {

@@ -173,6 +173,7 @@ class NearByVC: UIViewController, ListTableDelegate {
             self.resOpenNowLbl.text = "Close"
 
         }
+        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
             self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {

@@ -60,6 +60,7 @@ class MapVC: UIViewController {
             self.resOpenNowLbl.textColor = .red
             self.resOpenNowLbl.text = "Close"
         }
+        self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
             self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
