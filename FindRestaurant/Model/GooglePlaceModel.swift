@@ -21,7 +21,7 @@ struct GooglePlaceModel: Codable {
     private let geometry: Gemoetry?
 
     var coordinate: CLLocationCoordinate2D? {
-        return CLLocationCoordinate2D(latitude: geometry?.location.lat ?? 0.0, longitude: geometry?.location.lng ?? 0.0)
+        return CLLocationCoordinate2D(latitude: geometry?.location?.lat ?? 0.0, longitude: geometry?.location?.lng ?? 0.0)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -43,7 +43,7 @@ extension GooglePlaceModel {
     }
     
     private struct Gemoetry: Codable {
-        let location: Coordinate
+        let location: Coordinate?
     }
     struct OpeningHours: Codable {
         let openNow: Bool?

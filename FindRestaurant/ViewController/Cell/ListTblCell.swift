@@ -74,11 +74,11 @@ class ListTblCell: UITableViewCell {
             self.resOpenNowLbl.text = "Close"
 
         }
-        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: googlePlace?.reference ?? "") {
-            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         }
         
     }
@@ -112,11 +112,11 @@ class ListTblCell: UITableViewCell {
             self.resOpenNowLbl.text = "Close"
             
         }
-        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: wishList?.id ?? "") {
-            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -14,5 +14,5 @@ enum EndPoint: String {
 }
 
 class APIHelper{
-    static  let baseUrl = "https://maps.googleapis.com/maps/api/"
+    static let baseUrl = "https://maps.googleapis.com/maps/api/"
 }

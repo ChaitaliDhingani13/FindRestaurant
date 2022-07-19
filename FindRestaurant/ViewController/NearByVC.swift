@@ -72,10 +72,10 @@ class NearByVC: UIViewController, ListTableDelegate {
     private func setUpNavigationBar() {
         let MapButton = UIButton(type: .custom)
         MapButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let mapIcon = ImageUtility.shared.mapImg
+        let mapIcon = ImageUtility.mapImg
         MapButton.setBackgroundImage(mapIcon, for: .normal)
         
-        MapButton.tintColor = ColorUtility.shared.themeColor
+        MapButton.tintColor = ColorUtility.themeColor
         MapButton.addTarget(self, action: #selector(mapBtnClick(sender:)), for: .touchUpInside)
         if #available(iOS 11, *) {
             MapButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -84,9 +84,9 @@ class NearByVC: UIViewController, ListTableDelegate {
         let MapBarBtn = UIBarButtonItem(customView: MapButton)
         let ListButton = UIButton(type: .custom)
         ListButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let ListIcon = ImageUtility.shared.listImg
+        let ListIcon = ImageUtility.listImg
         ListButton.setBackgroundImage(ListIcon, for: .normal)
-        ListButton.tintColor = ColorUtility.shared.themeColor
+        ListButton.tintColor = ColorUtility.themeColor
         ListButton.addTarget(self, action: #selector(listBtnClick(sender:)), for: .touchUpInside)
         if #available(iOS 11, *) {
             ListButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -104,7 +104,7 @@ class NearByVC: UIViewController, ListTableDelegate {
         }
         
         self.navigationItem.title = "Nearby Restaurants"
-        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
+        self.navigationItem.titleView?.tintColor = ColorUtility.themeColor
     }
     
     @objc func mapBtnClick(sender: AnyObject){
@@ -125,29 +125,34 @@ class NearByVC: UIViewController, ListTableDelegate {
     func fetchPlaces(near coordinate: CLLocationCoordinate2D) {
         mapView.clear()
         var bounds = GMSCoordinateBounds()
-        dataProvider.fetchPlaces(coordinate: coordinate) { googlePlaceArr in
-            self.googlePlaceArr = googlePlaceArr
-            if googlePlaceArr.count == 0 {
-                self.noDataFound.isHidden = false
-                self.tblView.isHidden = true
-            } else {
-                self.noDataFound.isHidden = true
-                self.tblView.isHidden = false
-            }
-            self.tblView.reloadData()
-            self.googlePlaceArr.forEach { place in
-                let marker = PlaceMarkerModel(place: place)
-                marker.map = self.mapView
-                bounds = bounds.includingCoordinate(marker.position)
+        dataProvider.fetchPlaces(coordinate: coordinate) { googlePlaceArr, error  in
+            if error == nil {
+                self.googlePlaceArr = googlePlaceArr
+                if googlePlaceArr.count == 0 {
+                    self.noDataFound.isHidden = false
+                    self.tblView.isHidden = true
+                } else {
+                    self.noDataFound.isHidden = true
+                    self.tblView.isHidden = false
+                }
+                self.tblView.reloadData()
+                self.googlePlaceArr.forEach { place in
+                    let marker = PlaceMarkerModel(place: place)
+                    marker.map = self.mapView
+                    bounds = bounds.includingCoordinate(marker.position)
+                    
+                }
+                self.mapView.setMinZoom(1, maxZoom: 15)
+                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+                self.mapView.animate(with: update)
                 
-            }
-            self.mapView.setMinZoom(1, maxZoom: 15)
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-            self.mapView.animate(with: update)
-            
-            if self.googlePlaceArr.count > 0 {
-                self.placeDict = googlePlaceArr[0]
-                self.setDataMap(self.placeDict)
+                if self.googlePlaceArr.count > 0 {
+                    self.placeDict = googlePlaceArr[0]
+                    self.setDataMap(self.placeDict)
+                }
+
+            } else {
+                Utility.alert(message: error ?? "")
             }
         }
     }
@@ -173,11 +178,11 @@ class NearByVC: UIViewController, ListTableDelegate {
             self.resOpenNowLbl.text = "Close"
 
         }
-        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
-            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         }
     }
 }

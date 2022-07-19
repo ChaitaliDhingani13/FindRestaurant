@@ -7,40 +7,24 @@
 import Foundation
 import UIKit
 
-
-enum AppMode{
-    case Development
-    case Production
-    case Staging
-}
-
 enum HttpMethod: String {
     case GET = "GET"
     case POST = "POST"
 }
 
-class WebService: NSObject{
+class WebService: NSObject {
     
     static let shared = WebService()
-    
     private override init() {
         super.init()
     }
-    
-    var appmode : AppMode = .Development
-    
-    lazy var decoder: JSONDecoder = { return JSONDecoder() }()
-    
+            
     private func getBaseUrl() -> String {
-        
         let BaseURL = APIHelper.baseUrl
         return BaseURL
     }
     
-    
-    func getDataFromWebService<T>(task: String, params: [String : String] = [:], httpMethod: HttpMethod , modType: T.Type, completion: @escaping ((T?, String?) -> Void)) where T: Decodable {
-        
-        
+    func getDataFromWebService<T>(task: String, params: [String : String] = [:], httpMethod: HttpMethod , modType: T.Type, completion: @escaping ((T?, String?) -> Void)) where T: Decodable {        
         let strURL = getBaseUrl() + task
         guard let url = URL(string: strURL) else{
             completion(nil, Constant.APIURLError)
@@ -71,7 +55,6 @@ class WebService: NSObject{
                 return
             }
             DispatchQueue.main.async {
-                
                 completion(placesResponse, nil)
             }
         }.resume()

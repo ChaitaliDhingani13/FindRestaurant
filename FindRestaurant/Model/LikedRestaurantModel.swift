@@ -11,5 +11,4 @@ struct LikedRestaurantModel {
     var distance, rating, latitude, longitude: Double?
     var openNow: Bool?
     var id: String?
-    
 }

@@ -23,7 +23,7 @@ class WishListVC: UIViewController, ListTableDelegate {
     
     private func setUpNavigationBar() {
         self.navigationItem.title = "Wish List"
-        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
+        self.navigationItem.titleView?.tintColor = ColorUtility.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

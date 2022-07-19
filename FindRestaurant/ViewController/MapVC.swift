@@ -36,7 +36,7 @@ class MapVC: UIViewController {
     private func setUpNavigationBar() {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.title = placeDict.name
-        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
+        self.navigationItem.titleView?.tintColor = ColorUtility.themeColor
     }
     
     func setUpUI() {
@@ -60,11 +60,11 @@ class MapVC: UIViewController {
             self.resOpenNowLbl.textColor = .red
             self.resOpenNowLbl.text = "Close"
         }
-        self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
-            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
         }
     }
     
@@ -85,18 +85,23 @@ class MapVC: UIViewController {
     
     
     func fetchRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-        dataProvider.fetchDirection(source: source, destination: destination) { googleMap in
-            if let direction = googleMap {
-                let routes = direction.routes?.first
-                self.drawPath(from: routes, source: source, destination: destination)
+        dataProvider.fetchDirection(source: source, destination: destination) { googleMap, error  in
+            if error == nil {
+                if let direction = googleMap {
+                    let routes = direction.routes?.first
+                    self.drawPath(from: routes, source: source, destination: destination)
+                }
+            }else {
+                Utility.alert(message: error ?? "")
             }
+
         }
     }
     func drawPath(from routes: Route?, source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D){
         let path = GMSPath(fromEncodedPath: routes?.overviewPolyline?.points ?? "")
         let polyline = GMSPolyline(path: path)
         polyline.strokeWidth = 6
-        polyline.strokeColor = ColorUtility.shared.themeColor
+        polyline.strokeColor = ColorUtility.themeColor
         polyline.geodesic = true
         polyline.map = self.mapView
         let tempBounds = routes?.bounds
@@ -112,7 +117,7 @@ class MapVC: UIViewController {
         
         // MARK: Marker for destination location
         let destinationMarker = GMSMarker()
-        destinationMarker.icon = ImageUtility.shared.restImg
+        destinationMarker.icon = ImageUtility.restImg
         destinationMarker.position = CLLocationCoordinate2D(latitude: destination.latitude, longitude: destination.longitude)
         destinationMarker.title = self.placeDict.name
         destinationMarker.map = self.mapView
