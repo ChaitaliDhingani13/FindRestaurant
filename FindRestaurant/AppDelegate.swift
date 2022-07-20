@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 import GoogleMaps
 
 let googleApiKey = "AIzaSyBr4Q9FyT0otujnEStamywgCqaomenO76Q"
