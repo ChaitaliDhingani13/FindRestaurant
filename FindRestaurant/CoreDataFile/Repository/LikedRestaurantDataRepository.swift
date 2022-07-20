@@ -18,7 +18,7 @@ protocol LikedRestaurantRepository {
 }
 
 
-struct LikedRestaurantDataRepository: LikedRestaurantRepository{
+struct LikedRestaurantDataRepository: LikedRestaurantRepository {
     func checkIfRecordExist(id: String) -> Bool {
         
         let results = getRestaurantByID(byIdentifier: id)

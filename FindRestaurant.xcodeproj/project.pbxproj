@@ -15,7 +15,6 @@
 		A46A85A42873431500A703CC /* ListTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46A85A22873431500A703CC /* ListTblCell.xib */; };
 		A46A85AB2874649E00A703CC /* LikedRestaurantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85AA2874649E00A703CC /* LikedRestaurantModel.swift */; };
 		A46A85B62874698700A703CC /* LikedRestaurant+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85B42874698700A703CC /* LikedRestaurant+CoreDataClass.swift */; };
-		A46A85B72874698700A703CC /* LikedRestaurant+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85B52874698700A703CC /* LikedRestaurant+CoreDataProperties.swift */; };
 		A46A85BC2874699F00A703CC /* LikedRestaurantManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85B92874699F00A703CC /* LikedRestaurantManager.swift */; };
 		A46A85BD2874699F00A703CC /* LikedRestaurantDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85BB2874699F00A703CC /* LikedRestaurantDataRepository.swift */; };
 		A46A85BF28746D8700A703CC /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A85BE28746D8700A703CC /* PersistentStorage.swift */; };
@@ -77,7 +76,6 @@
 		A46A85A22873431500A703CC /* ListTblCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTblCell.xib; sourceTree = "<group>"; };
 		A46A85AA2874649E00A703CC /* LikedRestaurantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedRestaurantModel.swift; sourceTree = "<group>"; };
 		A46A85B42874698700A703CC /* LikedRestaurant+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LikedRestaurant+CoreDataClass.swift"; sourceTree = "<group>"; };
-		A46A85B52874698700A703CC /* LikedRestaurant+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LikedRestaurant+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A46A85B92874699F00A703CC /* LikedRestaurantManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedRestaurantManager.swift; sourceTree = "<group>"; };
 		A46A85BB2874699F00A703CC /* LikedRestaurantDataRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedRestaurantDataRepository.swift; sourceTree = "<group>"; };
 		A46A85BE28746D8700A703CC /* PersistentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
@@ -187,8 +185,9 @@
 		A46A85A52874642300A703CC /* CoreDataFile */ = {
 			isa = PBXGroup;
 			children = (
+				A46A85B82874699F00A703CC /* Manager */,
+				A46A85BA2874699F00A703CC /* Repository */,
 				A46A85B42874698700A703CC /* LikedRestaurant+CoreDataClass.swift */,
-				A46A85B52874698700A703CC /* LikedRestaurant+CoreDataProperties.swift */,
 				A46A85BE28746D8700A703CC /* PersistentStorage.swift */,
 				A49D47AF2872987B009CC151 /* FindRestaurant.xcdatamodeld */,
 			);
@@ -239,8 +238,6 @@
 				A49D47A62872987B009CC151 /* AppDelegate.swift */,
 				A4BA11D12872A73900007C2C /* Helper */,
 				A4BFC71F2875617C00F8BF68 /* NetworkManager */,
-				A46A85B82874699F00A703CC /* Manager */,
-				A46A85BA2874699F00A703CC /* Repository */,
 				A49D47DD2872A3C4009CC151 /* Model */,
 				A49D47DC2872A3BB009CC151 /* ViewController */,
 				A4BA11D02872A72200007C2C /* ViewModel */,
@@ -620,7 +617,6 @@
 				A4BFC7232875617C00F8BF68 /* WebService.swift in Sources */,
 				A4BA11D72872CD2800007C2C /* Extension.swift in Sources */,
 				A46A85AB2874649E00A703CC /* LikedRestaurantModel.swift in Sources */,
-				A46A85B72874698700A703CC /* LikedRestaurant+CoreDataProperties.swift in Sources */,
 				A46A85A32873431500A703CC /* ListTblCell.swift in Sources */,
 				A46A859628733B1E00A703CC /* GoogleDataProviderModel.swift in Sources */,
 				A4E42047287D8CDF008F6EDA /* Utility.swift in Sources */,
