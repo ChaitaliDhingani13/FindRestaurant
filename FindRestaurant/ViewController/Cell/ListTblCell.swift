@@ -27,6 +27,8 @@ class ListTblCell: UITableViewCell {
     @IBOutlet weak var likeBtn: UIButton!
     var delegate: ListTableDelegate?
     var index = Int()
+    var likeButtonTapped: ((_ sender: UIButton) -> Void)?
+
     var googlePlace: GooglePlaceModel? {
         
         willSet {
@@ -84,6 +86,7 @@ class ListTblCell: UITableViewCell {
     }
     
     @IBAction func likeBtnClick(_ sender: UIButton) {
+        self.likeButtonTapped?(sender)
         delegate?.listLikeBtnClick(index: sender.tag)
 
     }

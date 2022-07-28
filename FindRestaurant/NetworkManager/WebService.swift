@@ -23,9 +23,7 @@ class WebService: NSObject {
         let BaseURL = APIHelper.baseUrl
         return BaseURL
     }
-    func getData() {
-        print("aaaaaa")
-    }
+   
     func getDataFromWebService<T>(task: String, params: [String : String] = [:], httpMethod: HttpMethod , modType: T.Type, completion: @escaping ((T?, String?) -> Void)) where T: Decodable {        
         let strURL = getBaseUrl() + task
         guard let url = URL(string: strURL) else {

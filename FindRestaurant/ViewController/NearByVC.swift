@@ -209,6 +209,10 @@ extension NearByVC: UITableViewDataSource {
         cell.index = indexPath.row
         cell.googlePlace = dict
         cell.delegate = self
+        cell.likeButtonTapped = {
+            (_ sender: UIButton) in
+            print("like click")
+        }
         cell.selectionStyle = .none
         return cell
     }
