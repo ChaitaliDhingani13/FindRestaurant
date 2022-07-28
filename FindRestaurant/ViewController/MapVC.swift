@@ -36,7 +36,7 @@ class MapVC: UIViewController {
     private func setUpNavigationBar() {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.title = placeDict.name
-        self.navigationItem.titleView?.tintColor = ColorUtility.themeColor
+        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
     }
     
     func setUpUI() {
@@ -47,7 +47,7 @@ class MapVC: UIViewController {
     func setUpData() {
         let photoreference = placeDict.photoReference
         let urlString = APIHelper.baseUrl + "\(EndPoint.photoAPI.rawValue)\(photoreference ?? "")&key=\(googleApiKey)"
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
+        self.resImg.sd_setImage(with: URL(string: urlString), placeholderImage: ImageUtility.shared.restPlaceImg, completed: nil)
         self.resNameLbl.text = placeDict.name
         self.resRatingLbl.text = "Rating"
         self.resDistanceLbl.text = "\(placeDict.distance ?? 0.0) Miles"
@@ -60,11 +60,11 @@ class MapVC: UIViewController {
             self.resOpenNowLbl.textColor = .red
             self.resOpenNowLbl.text = "Close"
         }
-        self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict.id ?? "") {
-            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
     }
     
@@ -101,7 +101,7 @@ class MapVC: UIViewController {
         let path = GMSPath(fromEncodedPath: routes?.overviewPolyline?.points ?? "")
         let polyline = GMSPolyline(path: path)
         polyline.strokeWidth = 6
-        polyline.strokeColor = ColorUtility.themeColor
+        polyline.strokeColor = ColorUtility.shared.themeColor
         polyline.geodesic = true
         polyline.map = self.mapView
         let tempBounds = routes?.bounds
@@ -117,7 +117,7 @@ class MapVC: UIViewController {
         
         // MARK: Marker for destination location
         let destinationMarker = GMSMarker()
-        destinationMarker.icon = ImageUtility.restImg
+        destinationMarker.icon = ImageUtility.shared.restImg
         destinationMarker.position = CLLocationCoordinate2D(latitude: destination.latitude, longitude: destination.longitude)
         destinationMarker.title = self.placeDict.name
         destinationMarker.map = self.mapView

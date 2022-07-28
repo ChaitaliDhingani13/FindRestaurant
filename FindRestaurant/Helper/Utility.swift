@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+
 class Utility {
     
     class func alert(message: String, title: String? = nil, button1: String, button2: String? = nil, button3: String? = nil, action:@escaping (Int)->())

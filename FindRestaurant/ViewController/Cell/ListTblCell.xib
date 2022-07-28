@@ -27,7 +27,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSs-eU-m5i">
                                         <rect key="frame" x="10" y="10" width="270" height="109"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lvI-3y-Nj1">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn_res_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="lvI-3y-Nj1">
                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="Urq-QI-AGs"/>
@@ -241,6 +241,7 @@
     <resources>
         <image name="icn_direction" width="512" height="512"/>
         <image name="icn_like" width="25" height="25"/>
+        <image name="icn_res_placeholder" width="30" height="30"/>
         <namedColor name="282f58">
             <color red="0.15700000524520874" green="0.18400000035762787" blue="0.3449999988079071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

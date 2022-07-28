@@ -23,16 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.configureWithOpaqueBackground()
             navigationBarAppearance.titleTextAttributes = [
-                NSAttributedString.Key.foregroundColor : ColorUtility.themeColor
+                NSAttributedString.Key.foregroundColor : ColorUtility.shared.themeColor
             ]
-            navigationBarAppearance.backgroundColor = ColorUtility.whiteColor
+            navigationBarAppearance.backgroundColor = ColorUtility.shared.whiteColor
             UINavigationBar.appearance().standardAppearance = navigationBarAppearance
             UINavigationBar.appearance().compactAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
 
             let tabBarApperance = UITabBarAppearance()
             tabBarApperance.configureWithOpaqueBackground()
-            tabBarApperance.backgroundColor = ColorUtility.whiteColor
+            tabBarApperance.backgroundColor = ColorUtility.shared.whiteColor
             UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
             UITabBar.appearance().standardAppearance = tabBarApperance
         }

@@ -23,7 +23,7 @@ class WishListVC: UIViewController, ListTableDelegate {
     
     private func setUpNavigationBar() {
         self.navigationItem.title = "Wish List"
-        self.navigationItem.titleView?.tintColor = ColorUtility.themeColor
+        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +78,7 @@ extension WishListVC: UITableViewDelegate, UITableViewDataSource {
     
     func listDirectionBtnClick(index: Int) {
         let dict = wishListArr[index]
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        let vc = Storyboard.MAIN.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         vc.placeDict = dict
         self.navigationController?.pushViewController(vc, animated: true)
 

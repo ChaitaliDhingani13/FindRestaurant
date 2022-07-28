@@ -36,7 +36,6 @@
 		A4BFC7222875617C00F8BF68 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7202875617C00F8BF68 /* APIHelper.swift */; };
 		A4BFC7232875617C00F8BF68 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7212875617C00F8BF68 /* WebService.swift */; };
 		A4BFC7252875A95700F8BF68 /* PlaceMarkerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7242875A95700F8BF68 /* PlaceMarkerModel.swift */; };
-		A4BFC7272875B5E000F8BF68 /* CalculateDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */; };
 		A4BFC7292875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */; };
 		A4E42045287C370C008F6EDA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E42044287C370C008F6EDA /* LocationManager.swift */; };
 		A4E42047287D8CDF008F6EDA /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E42046287D8CDF008F6EDA /* Utility.swift */; };
@@ -102,7 +101,6 @@
 		A4BFC7202875617C00F8BF68 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
 		A4BFC7212875617C00F8BF68 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		A4BFC7242875A95700F8BF68 /* PlaceMarkerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarkerModel.swift; sourceTree = "<group>"; };
-		A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateDistance.swift; sourceTree = "<group>"; };
 		A4BFC7282875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate+Extensions.swift"; sourceTree = "<group>"; };
 		A4E42044287C370C008F6EDA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		A4E42046287D8CDF008F6EDA /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -307,7 +305,6 @@
 			children = (
 				A4BA11D62872CD2800007C2C /* Extension.swift */,
 				A4BFC71B2875543200F8BF68 /* Constant.swift */,
-				A4BFC7262875B5E000F8BF68 /* CalculateDistance.swift */,
 				A4E42044287C370C008F6EDA /* LocationManager.swift */,
 				A4E42046287D8CDF008F6EDA /* Utility.swift */,
 				A4E4204828802BA9008F6EDA /* ImageUtility.swift */,
@@ -613,7 +610,6 @@
 				A46A85BC2874699F00A703CC /* LikedRestaurantManager.swift in Sources */,
 				A4BFC7292875CB4700F8BF68 /* CLLocationCoordinate+Extensions.swift in Sources */,
 				A4BFC7222875617C00F8BF68 /* APIHelper.swift in Sources */,
-				A4BFC7272875B5E000F8BF68 /* CalculateDistance.swift in Sources */,
 				A4BFC7232875617C00F8BF68 /* WebService.swift in Sources */,
 				A4BA11D72872CD2800007C2C /* Extension.swift in Sources */,
 				A46A85AB2874649E00A703CC /* LikedRestaurantModel.swift in Sources */,

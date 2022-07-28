@@ -8,15 +8,21 @@
 import Foundation
 import UIKit
 final class ImageUtility {
-    static let likeImg = UIImage(named: "icn_like")
-    static let disLikeImg = UIImage(named: "ic_dislikeImg")
-    static let mapImg = UIImage(named: "icn_map")
-    static let listImg = UIImage(named: "icn_list")
-    static let restImg = UIImage(named: "icn_restaurant")
+    static let shared = ImageUtility()
+
+    let likeImg = UIImage(named: "icn_like")
+    let disLikeImg = UIImage(named: "ic_dislikeImg")
+    let mapImg = UIImage(named: "icn_map")
+    let listImg = UIImage(named: "icn_list")
+    let restImg = UIImage(named: "icn_restaurant")
+    let restPlaceImg = UIImage(named: "icn_res_placeholder")
+
 }
 
 final class ColorUtility {
-    static let themeColor = UIColor(hexString: "282f58")
-    static let whiteColor = UIColor.white
+    static let shared = ColorUtility()
+
+    let themeColor = UIColor(hexString: "282f58")
+    let whiteColor = UIColor.white
 
 }

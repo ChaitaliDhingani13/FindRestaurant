@@ -57,7 +57,7 @@ class ListTblCell: UITableViewCell {
 
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: googlePlace?.coordinate)
 
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
+        self.resImg.sd_setImage(with: URL(string: urlString), placeholderImage: ImageUtility.shared.restPlaceImg, completed: nil)
         self.resNameLbl.text = googlePlace?.name
         self.resRatingLbl.text = "Rating"
         self.resDistanceLbl.text = "\(dis) Miles"
@@ -74,11 +74,11 @@ class ListTblCell: UITableViewCell {
             self.resOpenNowLbl.text = "Close"
 
         }
-        self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: googlePlace?.reference ?? "") {
-            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
         
     }
@@ -93,8 +93,7 @@ class ListTblCell: UITableViewCell {
     private func setupLikedRestaurant() {
         let photoreference = wishList?.photoReference
         let urlString = APIHelper.baseUrl + "\(EndPoint.photoAPI.rawValue)\(photoreference ?? "")&key=\(googleApiKey)"
-
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
+        self.resImg.sd_setImage(with: URL(string: urlString), placeholderImage: ImageUtility.shared.restPlaceImg, completed: nil)
         self.resNameLbl.text = wishList?.name
         self.resRatingLbl.text = "Rating"
         self.resDistanceLbl.text = "\(wishList?.distance ?? 0.0) Miles"
@@ -112,11 +111,11 @@ class ListTblCell: UITableViewCell {
             self.resOpenNowLbl.text = "Close"
             
         }
-        self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: wishList?.id ?? "") {
-            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

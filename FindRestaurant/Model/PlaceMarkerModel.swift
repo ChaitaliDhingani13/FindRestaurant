@@ -18,7 +18,7 @@ class PlaceMarkerModel: GMSMarker {
         position = place.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         groundAnchor = CGPoint(x: 0.5, y: 1)
         appearAnimation = .pop
-        icon = ImageUtility.restImg
+        icon = ImageUtility.shared.restImg
     }
 }
 

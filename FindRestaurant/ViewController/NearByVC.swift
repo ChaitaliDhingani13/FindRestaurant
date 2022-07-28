@@ -72,10 +72,10 @@ class NearByVC: UIViewController, ListTableDelegate {
     private func setUpNavigationBar() {
         let MapButton = UIButton(type: .custom)
         MapButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let mapIcon = ImageUtility.mapImg
+        let mapIcon = ImageUtility.shared.mapImg
         MapButton.setBackgroundImage(mapIcon, for: .normal)
         
-        MapButton.tintColor = ColorUtility.themeColor
+        MapButton.tintColor = ColorUtility.shared.themeColor
         MapButton.addTarget(self, action: #selector(mapBtnClick(sender:)), for: .touchUpInside)
         if #available(iOS 11, *) {
             MapButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -84,9 +84,9 @@ class NearByVC: UIViewController, ListTableDelegate {
         let MapBarBtn = UIBarButtonItem(customView: MapButton)
         let ListButton = UIButton(type: .custom)
         ListButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let ListIcon = ImageUtility.listImg
+        let ListIcon = ImageUtility.shared.listImg
         ListButton.setBackgroundImage(ListIcon, for: .normal)
-        ListButton.tintColor = ColorUtility.themeColor
+        ListButton.tintColor = ColorUtility.shared.themeColor
         ListButton.addTarget(self, action: #selector(listBtnClick(sender:)), for: .touchUpInside)
         if #available(iOS 11, *) {
             ListButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -104,7 +104,7 @@ class NearByVC: UIViewController, ListTableDelegate {
         }
         
         self.navigationItem.title = "Nearby Restaurants"
-        self.navigationItem.titleView?.tintColor = ColorUtility.themeColor
+        self.navigationItem.titleView?.tintColor = ColorUtility.shared.themeColor
     }
     
     @objc func mapBtnClick(sender: AnyObject){
@@ -163,7 +163,7 @@ class NearByVC: UIViewController, ListTableDelegate {
 
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: placeDict?.coordinate)
 
-        self.resImg.sd_setImage(with: URL(string: urlString), completed: nil)
+        self.resImg.sd_setImage(with: URL(string: urlString), placeholderImage: ImageUtility.shared.restPlaceImg, completed: nil)
         self.resNameLbl.text = placeDict?.name
         self.resRatingLbl.text = "Rating"
         self.resDistanceLbl.text = "\(dis) Miles"
@@ -178,11 +178,11 @@ class NearByVC: UIViewController, ListTableDelegate {
             self.resOpenNowLbl.text = "Close"
 
         }
-        self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+        self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         if LikedRestaurantManager.shared.checkIfLikedRestaurantExist(id: placeDict?.reference ?? "") {
-            self.likeBtn.setImage(ImageUtility.likeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.likeImg, for: .normal)
         } else {
-            self.likeBtn.setImage(ImageUtility.disLikeImg, for: .normal)
+            self.likeBtn.setImage(ImageUtility.shared.disLikeImg, for: .normal)
         }
     }
 }
@@ -241,7 +241,7 @@ extension NearByVC: UITableViewDataSource {
         let dict = googlePlaceArr[index]
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: dict.coordinate)
         
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        let vc = Storyboard.MAIN.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let Liked = LikedRestaurantModel(name: dict.name,
                                          address: dict.address,
                                          photoReference: dict.photos?[0].photoReference,
@@ -293,7 +293,7 @@ extension NearByVC: GMSMapViewDelegate {
     }
     
     @IBAction func directionBtnClick(_ sender: UIButton) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        let vc = Storyboard.MAIN.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let dis = CalculateDistance.sharedInstance.distanceInMile(source: LocationManager.shared.currentLocation, destination: placeDict?.coordinate)
         let Liked = LikedRestaurantModel(name: placeDict?.name,
                                          address: placeDict?.address,
